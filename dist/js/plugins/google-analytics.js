@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -197,33 +197,62 @@ function providePlugin(pluginName, pluginInstance) {
 /* 6 */,
 /* 7 */,
 /* 8 */,
-/* 9 */
+/* 9 */,
+/* 10 */,
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(10);
+module.exports = __webpack_require__(12);
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_provide_plugin__ = __webpack_require__(5);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
-function Example() {
-    function onLoad() {
-        console.log('PLUGIN REGISTERED');
+
+function GoogleAnalytics() {
+
+    var config = {};
+
+    var defaults = {
+        trackingID: 'UA-123',
+        gaScript: 'https://www.google-analytics.com/analytics.js',
+        gaSettings: 'auto'
+    };
+
+    function onLoad(options) {
+        config = _extends({}, defaults, options);
     };
 
     function onApprove() {
-        console.log('PLUGIN CONSENT GIVEN');
+        _loadAnalyticsScript();
     };
 
     function onDeny() {
-        console.log('PLUGIN CONSENT DENIED');
+        console.log('Google Analytics are not enabled.');
     };
+
+    function _loadAnalyticsScript() {
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments);
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', config.gaScript, 'ga');
+
+        window.ga('create', config.trackingID, config.gaSettings);
+        window.ga('send', 'pageview');
+    }
 
     return {
         onLoad: onLoad,
@@ -232,7 +261,7 @@ function Example() {
     };
 }
 
-Object(__WEBPACK_IMPORTED_MODULE_0__utils_provide_plugin__["a" /* default */])('example', new Example());
+Object(__WEBPACK_IMPORTED_MODULE_0__utils_provide_plugin__["a" /* default */])('google-analytics', new GoogleAnalytics());
 
 /***/ })
 /******/ ]);

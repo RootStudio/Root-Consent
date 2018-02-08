@@ -1,5 +1,6 @@
 {
     "/js/jquery.root-consent.js": "/js/jquery.root-consent.js",
+    "/js/plugins/google-analytics.js": "/js/plugins/google-analytics.js",
     "/js/plugins/example.js": "/js/plugins/example.js",
     "/js/root-consent.js": "/js/root-consent.js"
 }

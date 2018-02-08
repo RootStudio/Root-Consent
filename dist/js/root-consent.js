@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -253,7 +253,7 @@ function rootConsent(element, options) {
 
         // Update with new information
         plugin.instance = instance;
-        plugin.pinged = true;
+        plugin.loaded = true;
 
         // Fire load method
         plugin.instance.onLoad(plugin.options);
@@ -275,10 +275,11 @@ function rootConsent(element, options) {
         var fireApprove = hasConsented();
 
         plugins.filter(function (plugin) {
-            return plugin.pinged;
-        }).forEach(function (_ref2) {
-            var name = _ref2.name,
-                instance = _ref2.instance;
+            return plugin.loaded && !plugin.actioned;
+        }).forEach(function (plugin) {
+            var name = plugin.name,
+                instance = plugin.instance;
+
 
             fireApprove ? instance.onApprove() : instance.onDeny();
 
@@ -286,6 +287,8 @@ function rootConsent(element, options) {
                 name: name,
                 instance: instance
             });
+
+            plugin.actioned = true;
         });
     }
 
@@ -296,6 +299,8 @@ function rootConsent(element, options) {
     function consentApproved() {
         localStorage.setItem(config.storageKey, true);
 
+        Object(__WEBPACK_IMPORTED_MODULE_0__utils_fire_event__["a" /* default */])(element, 'root-consent.approve');
+
         _hideConsentMessage();
 
         _actionPlugins();
@@ -303,6 +308,8 @@ function rootConsent(element, options) {
 
     function consentDenied() {
         localStorage.setItem(config.storageKey, false);
+
+        Object(__WEBPACK_IMPORTED_MODULE_0__utils_fire_event__["a" /* default */])(element, 'root-consent.deny');
 
         _hideConsentMessage();
 
@@ -328,7 +335,8 @@ function rootConsent(element, options) {
             name: name,
             options: options,
             instance: false,
-            pinged: false
+            loaded: false,
+            actioned: false
         });
 
         document.addEventListener('root-consent.plugin.load.' + name, _loadPlugin);
@@ -383,7 +391,8 @@ function rootConsent(element, options) {
 });
 
 /***/ }),
-/* 5 */
+/* 5 */,
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(3);

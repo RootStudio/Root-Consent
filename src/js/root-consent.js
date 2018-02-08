@@ -73,7 +73,7 @@ export function rootConsent(element, options) {
 
         // Update with new information
         plugin.instance = instance;
-        plugin.pinged = true;
+        plugin.loaded = true;
 
         // Fire load method
         plugin.instance.onLoad(plugin.options);
@@ -94,13 +94,17 @@ export function rootConsent(element, options) {
 
         const fireApprove = hasConsented();
 
-        plugins.filter(plugin => plugin.pinged).forEach(({name, instance}) => {
+        plugins.filter(plugin => plugin.loaded && !plugin.actioned).forEach(plugin => {
+            const {name, instance} = plugin;
+
             fireApprove ? instance.onApprove() : instance.onDeny();
 
             fireEvent(element, `root-consent.plugin.${name}.${fireApprove ? 'approve' : 'deny'}`, {
                 name,
                 instance
             });
+
+            plugin.actioned = true;
         });
     }
 
@@ -111,6 +115,8 @@ export function rootConsent(element, options) {
     function consentApproved() {
         localStorage.setItem(config.storageKey, true);
 
+        fireEvent(element, 'root-consent.approve');
+
         _hideConsentMessage();
 
         _actionPlugins();
@@ -118,6 +124,8 @@ export function rootConsent(element, options) {
 
     function consentDenied() {
         localStorage.setItem(config.storageKey, false);
+
+        fireEvent(element, 'root-consent.deny');
 
         _hideConsentMessage();
 
@@ -141,7 +149,8 @@ export function rootConsent(element, options) {
             name,
             options,
             instance: false,
-            pinged: false
+            loaded: false,
+            actioned: false
         });
 
         document.addEventListener(`root-consent.plugin.load.${name}`, _loadPlugin)
