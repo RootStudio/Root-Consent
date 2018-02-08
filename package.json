@@ -1,0 +1,18 @@
+{
+    "name": "gpdr-consent-barrier",
+    "version": "0.0.1",
+    "description": "Provides a configurable way of obtaining explicit consent from users for tracking purposes",
+    "private": true,
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    },
+    "author": "James Wigger <james@rootstudio.co.uk>",
+    "license": "MIT",
+    "dependencies": {
+        "laravel-mix": "^2.0.0"
+    }
+}
