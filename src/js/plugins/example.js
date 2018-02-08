@@ -1,20 +1,20 @@
-import providePlugin from '../utils/providePlugin';
+import providePlugin from '../utils/provide-plugin';
 
 function Example() {
-    function onRegister() {
-        alert('Hello World!');
+    function onLoad() {
+        console.log('PLUGIN REGISTERED');
     };
 
     function onApprove() {
-        alert('Load trackers...');
+        console.log('PLUGIN CONSENT GIVEN');
     };
 
     function onDeny() {
-        alert('Destroy trackers...');
+        console.log('PLUGIN CONSENT DENIED');
     };
 
     return {
-        onRegister,
+        onLoad,
         onApprove,
         onDeny
     }

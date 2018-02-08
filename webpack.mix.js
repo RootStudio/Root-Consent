@@ -4,7 +4,8 @@ let mix = require('laravel-mix');
 
 mix.setPublicPath('dist');
 
-mix.js('src/js/gdpr-consent.js', 'dist/js/gdpr-consent.js');
+mix.js('src/js/root-consent.js', 'dist/js/root-consent.js');
+mix.js('src/js/jquery.root-consent.js', 'dist/js/jquery.root-consent.js');
 mix.js('src/js/plugins/example.js', 'dist/js/plugins/example.js');
 
 mix.webpackConfig({

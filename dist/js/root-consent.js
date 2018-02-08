@@ -70,33 +70,134 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__(1);
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = fireEvent;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_custom_event__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_custom_event___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_custom_event__);
 
+
+function fireEvent(element, type, detail) {
+    var event = new __WEBPACK_IMPORTED_MODULE_0_custom_event___default.a(type, {
+        bubbles: true,
+        cancelable: true,
+        detail: detail
+    });
+
+    element.dispatchEvent(event);
+}
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {
+var NativeCustomEvent = global.CustomEvent;
+
+function useNative () {
+  try {
+    var p = new NativeCustomEvent('cat', { detail: { foo: 'bar' } });
+    return  'cat' === p.type && 'bar' === p.detail.foo;
+  } catch (e) {
+  }
+  return false;
+}
+
+/**
+ * Cross-browser `CustomEvent` constructor.
+ *
+ * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent.CustomEvent
+ *
+ * @public
+ */
+
+module.exports = useNative() ? NativeCustomEvent :
+
+// IE >= 9
+'undefined' !== typeof document && 'function' === typeof document.createEvent ? function CustomEvent (type, params) {
+  var e = document.createEvent('CustomEvent');
+  if (params) {
+    e.initCustomEvent(type, params.bubbles, params.cancelable, params.detail);
+  } else {
+    e.initCustomEvent(type, false, false, void 0);
+  }
+  return e;
+} :
+
+// IE <= 8
+function CustomEvent (type, params) {
+  var e = document.createEventObject();
+  e.type = type;
+  if (params) {
+    e.bubbles = Boolean(params.bubbles);
+    e.cancelable = Boolean(params.cancelable);
+    e.detail = params.detail;
+  } else {
+    e.bubbles = false;
+    e.cancelable = false;
+    e.detail = void 0;
+  }
+  return e;
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (immutable) */ __webpack_exports__["GDPRConsentBarrier"] = GDPRConsentBarrier;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__defaults__ = __webpack_require__(2);
+/* harmony export (immutable) */ __webpack_exports__["rootConsent"] = rootConsent;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_fire_event__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defaults__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
 
-function GDPRConsentBarrier(element, options) {
+
+function rootConsent(element, options) {
 
     var config = {};
 
     var plugins = [];
+
+    /**
+     * Convert jQuery objects to standard element
+     */
 
     if (typeof jQuery !== 'undefined' && element instanceof jQuery) {
         element = element[0];
@@ -110,21 +211,33 @@ function GDPRConsentBarrier(element, options) {
             messageTitle = _config.messageTitle,
             messageText = _config.messageText,
             approveLabel = _config.approveLabel,
-            denyLabel = _config.denyLabel;
+            denyLabel = _config.denyLabel,
+            position = _config.position,
+            theme = _config.theme;
 
 
-        var html = '\n            <div class="gpdr-consent">\n                <div class="gpdr-consent__message">\n                    <strong class="gpdr-consent__message-title">' + messageTitle + '</strong>\n                    <p class="gpdr-consent__message-text">' + messageText + '</p>\n                </div>\n                <div class="gpdr-consent__actions">\n                    <button class="gpdr-consent__btn gpdr-consent__btn--approve">' + approveLabel + '</button>\n                    <button class="gpdr-consent__btn gpdr-consent__btn--deny">' + denyLabel + '</button>\n                </div>\n            </div>\n        ';
+        var html = '\n            <div class="root-consent root-consent--' + position + ' root-consent--' + theme + '">\n                <div class="root-consent__message">\n                    <strong class="root-consent__message-title">' + messageTitle + '</strong>\n                    <p class="root-consent__message-text">' + messageText + '</p>\n                </div>\n                <div class="root-consent__actions">\n                    <button class="root-consent__btn root-consent__btn--approve">' + approveLabel + '</button>\n                    <button class="root-consent__btn root-consent__btn--deny">' + denyLabel + '</button>\n                </div>\n            </div>\n        ';
 
         var template = document.createRange().createContextualFragment(html);
 
-        template.querySelector('.gpdr-consent__btn--approve').addEventListener('click', consentApproved);
-        template.querySelector('.gpdr-consent__btn--deny').addEventListener('click', consentDenied);
+        template.querySelector('.root-consent__btn--approve').addEventListener('click', consentApproved);
+        template.querySelector('.root-consent__btn--deny').addEventListener('click', consentDenied);
 
         return template;
     }
 
     function _displayConsentMessage() {
         element.appendChild(_consentMessageTemplate());
+
+        setTimeout(function () {
+            document.querySelector('.root-consent').classList.add('root-consent--active');
+            Object(__WEBPACK_IMPORTED_MODULE_0__utils_fire_event__["a" /* default */])(element, 'root-consent.display');
+        }, config.delay);
+    }
+
+    function _hideConsentMessage() {
+        document.querySelector('.root-consent').classList.remove('root-consent--active');
+        Object(__WEBPACK_IMPORTED_MODULE_0__utils_fire_event__["a" /* default */])(element, 'root-consent.hide');
     }
 
     function _loadPlugin(_ref) {
@@ -142,8 +255,13 @@ function GDPRConsentBarrier(element, options) {
         plugin.instance = instance;
         plugin.pinged = true;
 
-        // Fire registered method
-        plugin.instance.onRegister();
+        // Fire load method
+        plugin.instance.onLoad(plugin.options);
+
+        Object(__WEBPACK_IMPORTED_MODULE_0__utils_fire_event__["a" /* default */])(element, 'root-consent.plugin.' + name + '.load', {
+            name: name,
+            instance: instance
+        });
 
         // We need to run this each time to catch up
         // slow loading plugins if the user has
@@ -159,9 +277,15 @@ function GDPRConsentBarrier(element, options) {
         plugins.filter(function (plugin) {
             return plugin.pinged;
         }).forEach(function (_ref2) {
-            var instance = _ref2.instance;
+            var name = _ref2.name,
+                instance = _ref2.instance;
 
             fireApprove ? instance.onApprove() : instance.onDeny();
+
+            Object(__WEBPACK_IMPORTED_MODULE_0__utils_fire_event__["a" /* default */])(element, 'root-consent.plugin.' + name + '.' + (fireApprove ? 'approve' : 'deny'), {
+                name: name,
+                instance: instance
+            });
         });
     }
 
@@ -172,11 +296,15 @@ function GDPRConsentBarrier(element, options) {
     function consentApproved() {
         localStorage.setItem(config.storageKey, true);
 
+        _hideConsentMessage();
+
         _actionPlugins();
     }
 
     function consentDenied() {
         localStorage.setItem(config.storageKey, false);
+
+        _hideConsentMessage();
 
         _actionPlugins();
     }
@@ -194,21 +322,26 @@ function GDPRConsentBarrier(element, options) {
     }
 
     function registerPlugin(name) {
+        var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
         plugins.push({
             name: name,
+            options: options,
             instance: false,
             pinged: false
         });
 
-        document.addEventListener('gdpr_consent.provide.' + name, _loadPlugin);
+        document.addEventListener('root-consent.plugin.load.' + name, _loadPlugin);
     }
 
     function setup() {
-        config = _extends({}, __WEBPACK_IMPORTED_MODULE_0__defaults__["a" /* default */], options);
+        config = _extends({}, __WEBPACK_IMPORTED_MODULE_1__defaults__["a" /* default */], options);
 
         if (!hasConsented() && isNewVisitor()) {
             _displayConsentMessage();
         }
+
+        Object(__WEBPACK_IMPORTED_MODULE_0__utils_fire_event__["a" /* default */])(element, 'root-consent.setup');
     }
 
     setup();
@@ -225,7 +358,7 @@ function GDPRConsentBarrier(element, options) {
 };
 
 /***/ }),
-/* 2 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -239,13 +372,22 @@ function GDPRConsentBarrier(element, options) {
 
     denyLabel: 'No thanks',
 
-    storageKey: 'gpdr_consent',
+    storageKey: 'root-consent',
+
+    delay: 1000,
 
     position: 'bottom',
 
     theme: 'dark'
 
 });
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(3);
+
 
 /***/ })
 /******/ ]);

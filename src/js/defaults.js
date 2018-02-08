@@ -8,7 +8,9 @@ export default {
 
     denyLabel: 'No thanks',
 
-    storageKey: 'gpdr_consent',
+    storageKey: 'root-consent',
+
+    delay: 1000,
 
     position: 'bottom',
 

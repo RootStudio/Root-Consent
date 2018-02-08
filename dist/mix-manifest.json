@@ -1,4 +1,5 @@
 {
+    "/js/jquery.root-consent.js": "/js/jquery.root-consent.js",
     "/js/plugins/example.js": "/js/plugins/example.js",
-    "/js/gdpr-consent.js": "/js/gdpr-consent.js"
+    "/js/root-consent.js": "/js/root-consent.js"
 }

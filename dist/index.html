@@ -5,15 +5,22 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>GDPR Consent</title>
+    <link rel="stylesheet" href="./css/root-consent.css" />
+    <style type="text/css">
+        html, body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
 
-    <script src="./js/gdpr-consent.js"></script>
+    <script src="./js/root-consent.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const element = document.querySelector('body');
 
-            const Consent = GDPRConsentBarrier(element, {});
+            const Consent = rootConsent(element);
 
             Consent.registerPlugin('example');
         });

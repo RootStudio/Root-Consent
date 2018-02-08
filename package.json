@@ -3,16 +3,18 @@
     "version": "0.0.1",
     "description": "Provides a configurable way of obtaining explicit consent from users for tracking purposes",
     "private": true,
-    "main": "index.js",
+    "main": "js/gdpr-consent.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "watch": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "build-css": "node-sass --include-path scss src/sass/root-consent.scss dist/css/root-consent.css"
     },
     "author": "James Wigger <james@rootstudio.co.uk>",
     "license": "MIT",
-    "dependencies": {
+    "devDependencies": {
+        "custom-event": "^1.0.1",
         "laravel-mix": "^2.0.0"
     }
 }
