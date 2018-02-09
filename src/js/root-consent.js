@@ -1,22 +1,41 @@
 import fireEvent from './utils/fire-event';
 import defaults from './defaults';
 
+/**
+ * RootConsent library function
+ *
+ * @author James Wigger <james@rootstudio.co.uk>
+ *
+ * @param {Element} element
+ * @param {Object} options
+ * @returns {Object}
+ * @constructor
+ */
 export function rootConsent(element, options) {
 
+    /**
+     * Merged configuration values
+     *
+     * @type {Object}
+     */
     let config = {};
 
+    /**
+     * Registered plugin state array
+     *
+     * @type {Array}
+     */
     let plugins = [];
 
-    /**
-     * Convert jQuery objects to standard element
-     */
-
+    // Converts jQuery Objects to DOM Node
     if (typeof jQuery !== 'undefined' && element instanceof jQuery) {
         element = element[0];
     }
 
     /**
-     * Private
+     * Generates the consent message template and registered event handlers
+     *
+     * @private
      */
     function _consentMessageTemplate() {
         const {
@@ -49,6 +68,11 @@ export function rootConsent(element, options) {
         return template;
     }
 
+    /**
+     * Injects template into target element and triggers display animation
+     *
+     * @private
+     */
     function _displayConsentMessage() {
         element.appendChild(_consentMessageTemplate());
 
@@ -58,11 +82,23 @@ export function rootConsent(element, options) {
         }, config.delay);
     }
 
+    /**
+     * Triggers hide animation for message template
+     *
+     * @private
+     */
     function _hideConsentMessage() {
         document.querySelector('.root-consent').classList.remove('root-consent--active');
         fireEvent(element, 'root-consent.hide');
     }
 
+    /**
+     * Plugin load callback to update the current state and
+     * fire the 'onLoad' method of the plugin.
+     *
+     * @param {detail}
+     * @private
+     */
     function _loadPlugin({detail}) {
         const {name, instance} = detail;
 
@@ -89,6 +125,12 @@ export function rootConsent(element, options) {
         _actionPlugins();
     }
 
+    /**
+     * Loops through each plugin to fire the appropriate method, ignoring
+     * those that are not yet loaded or have yet to be actioned.
+     *
+     * @private
+     */
     function _actionPlugins() {
         if (isNewVisitor()) return;
 
@@ -109,9 +151,10 @@ export function rootConsent(element, options) {
     }
 
     /**
-     * Public
+     * Stores approval value in localStorage and fires plugin actions.
+     *
+     * @returns {Void}
      */
-
     function consentApproved() {
         localStorage.setItem(config.storageKey, true);
 
@@ -122,6 +165,11 @@ export function rootConsent(element, options) {
         _actionPlugins();
     }
 
+    /**
+     * Stores rejection value in localStorage and fires plugin actions.
+     *
+     * @returns {Void}
+     */
     function consentDenied() {
         localStorage.setItem(config.storageKey, false);
 
@@ -132,18 +180,36 @@ export function rootConsent(element, options) {
         _actionPlugins();
     }
 
+    /**
+     * Checks whether the localStorage key has been set to identify
+     * new visitors to the page.
+     *
+     * @returns {Boolean}
+     */
     function isNewVisitor() {
         const consent = localStorage.getItem(config.storageKey);
 
         return consent === null;
     }
 
+    /**
+     * Checks whether the stored value is the affirmative
+     *
+     * @returns {Boolean}
+     */
     function hasConsented() {
         const consent = localStorage.getItem(config.storageKey);
 
         return consent === 'true';
     }
 
+    /**
+     * Registers a new plugin with the library and attaches the
+     * event listener for the plugin to announce load state.
+     *
+     * @param {String} name
+     * @param {Object} options
+     */
     function registerPlugin(name, options = {}) {
         plugins.push({
             name,
@@ -156,6 +222,11 @@ export function rootConsent(element, options) {
         document.addEventListener(`root-consent.plugin.load.${name}`, _loadPlugin)
     }
 
+    /**
+     * Prepares the library for execution
+     *
+     * @returns {Void}
+     */
     function setup() {
         config = {...defaults, ...options};
 
@@ -168,7 +239,6 @@ export function rootConsent(element, options) {
 
     setup();
 
-    // API
     return {
         setup,
         consentApproved,
