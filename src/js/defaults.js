@@ -5,14 +5,14 @@ export default {
      *
      * @string {messageTitle}
      */
-    messageTitle: 'GDPR Consent',
+    messageTitle: 'Your Right to Privacy',
 
     /**
      * Longer message to explain what consent is being given for
      *
      * @string {messageText}
      */
-    messageText: 'Do you want us to track everything you do?',
+    messageText: 'This website uses analytics software - do you wish to be included in the collected data? Find out more in our Privacy Policy.',
 
     /**
      * Approval button text

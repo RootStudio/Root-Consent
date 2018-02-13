@@ -1,3 +1,5 @@
+import '../sass/root-consent.scss';
+
 import fireEvent from './utils/fire-event';
 import defaults from './defaults';
 
@@ -237,6 +239,17 @@ export function rootConsent(element, options) {
         fireEvent(element, 'root-consent.setup');
     }
 
+    /**
+     * Removes the localStorage data and resets the consent status
+     *
+     * @returns {void}
+     */
+    function destroy() {
+        localStorage.removeItem(config.storageKey);
+
+        fireEvent(element, 'root-consent.destroy');
+    }
+
     setup();
 
     return {
@@ -245,6 +258,7 @@ export function rootConsent(element, options) {
         consentDenied,
         isNewVisitor,
         hasConsented,
-        registerPlugin
+        registerPlugin,
+        destroy
     }
 };

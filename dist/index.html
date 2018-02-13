@@ -20,9 +20,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const element = document.querySelector('body');
 
-            const Consent = rootConsent(element, {
-
-            });
+            const Consent = rootConsent(element);
 
             Consent.registerPlugin('example');
             Consent.registerPlugin('google-analytics');
