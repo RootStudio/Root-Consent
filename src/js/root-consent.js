@@ -158,7 +158,7 @@ export function rootConsent(element, options) {
      * @returns {Void}
      */
     function consentApproved() {
-        localStorage.setItem(config.storageKey, true);
+        localStorage.setItem(config.storageKey, JSON.stringify({consent: true, date: Date.now()}));
 
         fireEvent(element, 'root-consent.approve');
 
@@ -173,7 +173,7 @@ export function rootConsent(element, options) {
      * @returns {Void}
      */
     function consentDenied() {
-        localStorage.setItem(config.storageKey, false);
+        localStorage.setItem(config.storageKey, JSON.stringify({consent: false, date: Date.now()}));
 
         fireEvent(element, 'root-consent.deny');
 
@@ -189,9 +189,8 @@ export function rootConsent(element, options) {
      * @returns {Boolean}
      */
     function isNewVisitor() {
-        const consent = localStorage.getItem(config.storageKey);
-
-        return consent === null;
+        const data = JSON.parse(localStorage.getItem(config.storageKey));
+        return data  === null;
     }
 
     /**
@@ -200,9 +199,12 @@ export function rootConsent(element, options) {
      * @returns {Boolean}
      */
     function hasConsented() {
-        const consent = localStorage.getItem(config.storageKey);
+        const data = JSON.parse(localStorage.getItem(config.storageKey));
 
-        return consent === 'true';
+        if( data ) {
+        }
+
+        return data && data.consent && !consentExpired(data.date);
     }
 
     /**
@@ -248,6 +250,19 @@ export function rootConsent(element, options) {
         localStorage.removeItem(config.storageKey);
 
         fireEvent(element, 'root-consent.destroy');
+    }
+
+    function consentExpired(date) {
+
+        date = new Date(date);
+        const today = new Date();
+        const diff = Math.abs(today.getTime() - date.getTime());
+
+        if ((diff / config.expiryFrame) > config.expiry) {
+            destroy();
+            return true;
+        }
+
     }
 
     setup();
