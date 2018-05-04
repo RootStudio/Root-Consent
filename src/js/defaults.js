@@ -36,11 +36,32 @@ export default {
     storageKey: 'root-consent',
 
     /**
+     * The localStorage key that consent date is stored under
+     *
+     * @string {storageDate}
+     */
+    storageDate: 'root-date',
+
+    /**
      * Delay length from page load to displaying the consent message
      *
      * @integer {delay}
      */
     delay: 1000,
+
+    /**
+     * Time Frame to expire consent
+     *
+     * @integer {expiryFrame}
+     */
+    expiryFrame: (1000 * 60 * 60 * 24),
+
+    /**
+     * Total time frame till consent expires
+     *
+     * @integer {expiry}
+     */
+    expiry: 30,
 
     /**
      * Position of message on screen
