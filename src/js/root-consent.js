@@ -1,5 +1,8 @@
 import '../sass/root-consent.scss';
 
+//Polyfills
+import './polyfills/find';
+
 import fireEvent from './utils/fire-event';
 import defaults from './defaults';
 
