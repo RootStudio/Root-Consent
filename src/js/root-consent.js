@@ -65,12 +65,22 @@ export function rootConsent(element, options) {
             </div>
         `;
 
-        const template = document.createRange().createContextualFragment(html);
+        try {
+            const template = document.createRange().createContextualFragment(html);
 
-        template.querySelector('.root-consent__btn--approve').addEventListener('click', consentApproved);
-        template.querySelector('.root-consent__btn--deny').addEventListener('click', consentDenied);
+            template.querySelector('.root-consent__btn--approve').addEventListener('click', consentApproved);
+            template.querySelector('.root-consent__btn--deny').addEventListener('click', consentDenied);
+            return template;
+        } catch (err) {
 
-        return template;
+            let template = document.createElement('html');
+            template.innerHTML = html;
+            template = template.cloneNode(true).querySelector('.root-consent');
+
+            template.querySelector('.root-consent__btn--approve').addEventListener('click', consentApproved);
+            template.querySelector('.root-consent__btn--deny').addEventListener('click', consentDenied);
+            return template;
+        }
     }
 
     /**
