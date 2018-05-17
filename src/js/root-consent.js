@@ -228,10 +228,7 @@ export function rootConsent(element, options) {
 
         document.addEventListener(`root-consent.plugin.loaded.${name}`, _loadPlugin);
 
-        fireEvent(document, `root-consent.plugin.load.${name}`, {
-            name: name,
-            options: options
-        });
+        fireEvent(document, `root-consent.plugin.load.${name}`, options);
 
     }
 
