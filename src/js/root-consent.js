@@ -1,7 +1,7 @@
 import '../sass/root-consent.scss';
 
 //Polyfills
-import './polyfills/find';
+import './polyfills/polyfill';
 
 import fireEvent from './utils/fire-event';
 import defaults from './defaults';
@@ -126,14 +126,6 @@ export function rootConsent(element, options) {
         plugin.instance = instance;
         plugin.loaded = true;
 
-        // Fire load method
-        plugin.instance.onLoad(plugin.options);
-
-        fireEvent(element, `root-consent.plugin.${name}.load`, {
-            name,
-            instance
-        });
-
         // We need to run this each time to catch up
         // slow loading plugins if the user has
         // already made their choice.
@@ -155,7 +147,6 @@ export function rootConsent(element, options) {
             const {name, instance} = plugin;
 
             fireApprove ? instance.onApprove() : instance.onDeny();
-
             fireEvent(element, `root-consent.plugin.${name}.${fireApprove ? 'approve' : 'deny'}`, {
                 name,
                 instance
@@ -176,7 +167,6 @@ export function rootConsent(element, options) {
         fireEvent(element, 'root-consent.approve');
 
         _hideConsentMessage();
-
         _actionPlugins();
     }
 
@@ -236,7 +226,12 @@ export function rootConsent(element, options) {
             actioned: false
         });
 
-        document.addEventListener(`root-consent.plugin.load.${name}`, _loadPlugin)
+        document.addEventListener(`root-consent.plugin.loaded.${name}`, _loadPlugin);
+
+        fireEvent(document, `root-consent.plugin.load.${name}`, {
+            name: name,
+        });
+
     }
 
     /**

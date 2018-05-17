@@ -8,8 +8,7 @@ import fireEvent from './fire-event';
  * @param {Function} pluginInstance
  */
 export default function providePlugin(pluginName, pluginInstance) {
-    fireEvent(document, `root-consent.plugin.load.${pluginName}`, {
-        name: pluginName,
-        instance: pluginInstance
-    });
+    document.addEventListener(`root-consent.plugin.load.${pluginName}`, options => {
+        pluginInstance['onLoad'](options, pluginInstance)
+    })
 };

@@ -1,4 +1,5 @@
 import providePlugin from '../utils/provide-plugin';
+import fireEvent from '../utils/fire-event';
 
 function GoogleAnalytics() {
 
@@ -10,12 +11,14 @@ function GoogleAnalytics() {
         gaSettings: 'auto'
     };
 
-    function onLoad(options) {
+    function onLoad(options, instance) {
         config = {...defaults, ...options};
+        fireEvent(document, 'root-consent.plugin.loaded.google-analytics', {name: 'google-analytics', instance: instance});
     };
 
     function onApprove() {
         _loadAnalyticsScript();
+        console.log('Google Analytics are enabled.')
     };
 
     function onDeny() {
