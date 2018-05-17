@@ -230,6 +230,7 @@ export function rootConsent(element, options) {
 
         fireEvent(document, `root-consent.plugin.load.${name}`, {
             name: name,
+            options: options
         });
 
     }
