@@ -8,7 +8,8 @@ function GoogleAnalytics() {
     let defaults = {
         trackingID: 'UA-123',
         gaScript: 'https://www.google-analytics.com/analytics.js',
-        gaSettings: 'auto'
+        gaSettings: 'auto',
+        anonymizeIp: false
     };
 
     function onLoad(options, instance) {
@@ -40,6 +41,7 @@ function GoogleAnalytics() {
 
         window.ga('create', config.trackingID, config.gaSettings);
         window.ga('send', 'pageview');
+        window.ga('set', 'config.anonymizeIp');
     }
 
     return {
