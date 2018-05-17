@@ -16,5 +16,8 @@
     "devDependencies": {
         "custom-event": "^1.0.1",
         "laravel-mix": "^2.0.0"
+    },
+    "dependencies": {
+        "custom-event-polyfill": "^0.3.0"
     }
 }

@@ -14,6 +14,5 @@ export default function fireEvent(element, type, detail) {
         cancelable: true,
         detail
     });
-
     element.dispatchEvent(event);
 }
