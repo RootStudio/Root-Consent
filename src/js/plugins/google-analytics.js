@@ -10,7 +10,6 @@ class GoogleAnalytics {
             gaSettings: 'auto',
             anonymizeIp: false
         };
-
     }
 
     onLoad(instance, options = {}) {

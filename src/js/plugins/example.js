@@ -67,5 +67,6 @@ class Example {
  * Add setTimeout to ensure comparability with jQuery
  *
  */
-
- providePlugin('example', new Example());
+setTimeout( () => {
+    providePlugin('example', new Example());
+},0)
