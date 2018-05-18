@@ -1,1 +1,304 @@
-!function(e,n){if("object"==typeof exports&&"object"==typeof module)module.exports=n();else if("function"==typeof define&&define.amd)define([],n);else{var t=n();for(var o in t)("object"==typeof exports?exports:e)[o]=t[o]}}("undefined"!=typeof self?self:this,function(){return function(e){var n={};function t(o){if(n[o])return n[o].exports;var a=n[o]={i:o,l:!1,exports:{}};return e[o].call(a.exports,a,a.exports,t),a.l=!0,a.exports}return t.m=e,t.c=n,t.d=function(e,n,o){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:o})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},t.p="",t(t.s=13)}([function(e,n,t){"use strict";n.a=function(e,n,t){var o=new a.a(n,{bubbles:!0,cancelable:!0,detail:t});e.dispatchEvent(o)};var o=t(1),a=t.n(o)},function(e,n,t){(function(n){var t=n.CustomEvent;e.exports=function(){try{var e=new t("cat",{detail:{foo:"bar"}});return"cat"===e.type&&"bar"===e.detail.foo}catch(e){}return!1}()?t:"undefined"!=typeof document&&"function"==typeof document.createEvent?function(e,n){var t=document.createEvent("CustomEvent");return n?t.initCustomEvent(e,n.bubbles,n.cancelable,n.detail):t.initCustomEvent(e,!1,!1,void 0),t}:function(e,n){var t=document.createEventObject();return t.type=e,n?(t.bubbles=Boolean(n.bubbles),t.cancelable=Boolean(n.cancelable),t.detail=n.detail):(t.bubbles=!1,t.cancelable=!1,t.detail=void 0),t}}).call(n,t(2))},function(e,n){var t;t=function(){return this}();try{t=t||Function("return this")()||(0,eval)("this")}catch(e){"object"==typeof window&&(t=window)}e.exports=t},,,,function(e,n,t){"use strict";n.a=function(e,n){document.addEventListener("root-consent.plugin.load."+e,function(e){n.onLoad(e.detail,n)}),Object(o.a)(document,"root-consent.plugin.registered."+e,{instance:n,name:e})};var o=t(0)},,,,,,,function(e,n,t){e.exports=t(14)},function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var o=t(6),a=t(0),i=Object.assign||function(e){for(var n=1;n<arguments.length;n++){var t=arguments[n];for(var o in t)Object.prototype.hasOwnProperty.call(t,o)&&(e[o]=t[o])}return e},c=function(){function e(e,n){for(var t=0;t<n.length;t++){var o=n[t];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}return function(n,t,o){return t&&e(n.prototype,t),o&&e(n,o),n}}();var r=function(){function e(){!function(e,n){if(!(e instanceof n))throw new TypeError("Cannot call a class as a function")}(this,e),this.config={trackingID:"UA-123",gaScript:"https://www.google-analytics.com/analytics.js",gaSettings:"auto",anonymizeIp:!1},document.addEventListener("root-consent.plugin.load.google-analytics",this.onLoad)}return c(e,[{key:"onLoad",value:function(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};console.log("Analytics loaded"),this.config=i({},n),Object(a.a)(document,"root-consent.plugin.loaded.google-analytics",{name:"google-analytics",instance:e})}},{key:"onApprove",value:function(){this._loadAnalyticsScript(),console.log("Google Analytics are enabled.")}},{key:"onDeny",value:function(){console.log("Google Analytics are not enabled.")}},{key:"_loadAnalyticsScript",value:function(){var e,n,t,o,a,i,c;e=window,n=document,t="script",o=this.config.gaScript,a="ga",e.GoogleAnalyticsObject=a,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,i=n.createElement(t),c=n.getElementsByTagName(t)[0],i.async=1,i.src=o,c.parentNode.insertBefore(i,c),window.ga("create",this.config.trackingID,this.config.gaSettings),window.ga("send","pageview"),window.ga("set",this.config.anonymizeIp)}}]),e}();setTimeout(function(){Object(o.a)("google-analytics",new r)},0)}])});
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else {
+		var a = factory();
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(typeof self !== 'undefined' ? self : this, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = fireEvent;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_custom_event__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_custom_event___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_custom_event__);
+
+
+/**
+ * Convenience wrapper for firing a custom event natively
+ * across all browsers.
+ *
+ * @param {Element} element
+ * @param {String} type
+ * @param {String|Object|Number|Boolean} detail
+ */
+function fireEvent(element, type, detail) {
+    var event = new __WEBPACK_IMPORTED_MODULE_0_custom_event___default.a(type, {
+        bubbles: true,
+        cancelable: true,
+        detail: detail
+    });
+
+    element.dispatchEvent(event);
+}
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {
+var NativeCustomEvent = global.CustomEvent;
+
+function useNative () {
+  try {
+    var p = new NativeCustomEvent('cat', { detail: { foo: 'bar' } });
+    return  'cat' === p.type && 'bar' === p.detail.foo;
+  } catch (e) {
+  }
+  return false;
+}
+
+/**
+ * Cross-browser `CustomEvent` constructor.
+ *
+ * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent.CustomEvent
+ *
+ * @public
+ */
+
+module.exports = useNative() ? NativeCustomEvent :
+
+// IE >= 9
+'undefined' !== typeof document && 'function' === typeof document.createEvent ? function CustomEvent (type, params) {
+  var e = document.createEvent('CustomEvent');
+  if (params) {
+    e.initCustomEvent(type, params.bubbles, params.cancelable, params.detail);
+  } else {
+    e.initCustomEvent(type, false, false, void 0);
+  }
+  return e;
+} :
+
+// IE <= 8
+function CustomEvent (type, params) {
+  var e = document.createEventObject();
+  e.type = type;
+  if (params) {
+    e.bubbles = Boolean(params.bubbles);
+    e.cancelable = Boolean(params.cancelable);
+    e.detail = params.detail;
+  } else {
+    e.bubbles = false;
+    e.cancelable = false;
+    e.detail = void 0;
+  }
+  return e;
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = providePlugin;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fire_event__ = __webpack_require__(0);
+
+
+/**
+ * Convenience wrapper for notifying the main library
+ * that a plugin has been loaded and is ready for use
+ *
+ * @param {String} pluginName
+ * @param {Object} pluginInstance
+ */
+function providePlugin(pluginName, pluginInstance) {
+
+    document.addEventListener('root-consent.plugin.load.' + pluginName, function (ev) {
+        pluginInstance.onLoad(ev.detail, pluginInstance);
+    });
+
+    Object(__WEBPACK_IMPORTED_MODULE_0__fire_event__["a" /* default */])(document, 'root-consent.plugin.registered.' + pluginName, { instance: pluginInstance, name: pluginName });
+};
+
+/***/ }),
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(16);
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_provide_plugin__ = __webpack_require__(8);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+var GoogleAnalytics = function () {
+    function GoogleAnalytics() {
+        _classCallCheck(this, GoogleAnalytics);
+
+        this.config = {
+            trackingID: 'UA-123',
+            gaScript: 'https://www.google-analytics.com/analytics.js',
+            gaSettings: 'auto',
+            anonymizeIp: false
+        };
+    }
+
+    _createClass(GoogleAnalytics, [{
+        key: 'onLoad',
+        value: function onLoad(instance) {
+            var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+            console.log('Analytics loaded');
+            this.config = _extends({}, options);
+        }
+    }, {
+        key: 'onApprove',
+        value: function onApprove() {
+            this._loadAnalyticsScript();
+            console.log('Google Analytics are enabled.');
+        }
+    }, {
+        key: 'onDeny',
+        value: function onDeny() {
+            console.log('Google Analytics are not enabled.');
+        }
+    }, {
+        key: '_loadAnalyticsScript',
+        value: function _loadAnalyticsScript() {
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments);
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m);
+            })(window, document, 'script', this.config.gaScript, 'ga');
+
+            window.ga('create', this.config.trackingID, this.config.gaSettings);
+            window.ga('send', 'pageview');
+            window.ga('set', this.config.anonymizeIp);
+        }
+    }]);
+
+    return GoogleAnalytics;
+}();
+
+setTimeout(function () {
+    Object(__WEBPACK_IMPORTED_MODULE_0__utils_provide_plugin__["a" /* default */])('google-analytics', new GoogleAnalytics());
+}, 0);
+
+/***/ })
+/******/ ]);
+});

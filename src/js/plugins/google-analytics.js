@@ -1,5 +1,4 @@
 import providePlugin from '../utils/provide-plugin';
-import fireEvent from '../utils/fire-event';
 
 class GoogleAnalytics {
 
@@ -12,13 +11,11 @@ class GoogleAnalytics {
             anonymizeIp: false
         };
 
-        document.addEventListener(`root-consent.plugin.load.google-analytics`, this.onLoad);
     }
 
     onLoad(instance, options = {}) {
         console.log('Analytics loaded');
         this.config = {...options};
-        fireEvent(document, 'root-consent.plugin.loaded.google-analytics', {name: 'google-analytics', instance: instance});
     };
 
     onApprove() {

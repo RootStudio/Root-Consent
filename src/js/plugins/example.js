@@ -1,5 +1,4 @@
 import providePlugin from '../utils/provide-plugin';
-import fireEvent from '../utils/fire-event';
 
 /**
  * This is the simplest example of a plugin, it will output the executed
@@ -10,8 +9,8 @@ import fireEvent from '../utils/fire-event';
  */
 class Example {
 
+    // Set any default config options here
     constructor() {
-        document.addEventListener(`root-consent.plugin.load.example`, this.onLoad);
     }
 
     /**
@@ -19,10 +18,7 @@ class Example {
      * loaded and has notified the main library that it is ready. You
      * should use this to set up any configuration objects.
      *
-     * First parameter must consist of the plugin instance, this is initially
-     * passed with the providePlugin function
-     *
-     * The second parameter of this method contains any configuration
+     * The first parameter of this method contains any configuration
      * parameters passed through when using the `registerPlugin()`
      * API method.
      *
@@ -30,9 +26,8 @@ class Example {
      * is determined. You should *not* load any data collection
      * scripts within this method.
      */
-    onLoad(instance, options = {}) {
+    onLoad() {
         console.log('PLUGIN REGISTERED');
-        fireEvent(document, 'root-consent.plugin.loaded.example', {name: 'example', instance: instance});
     };
 
     /**
@@ -72,6 +67,5 @@ class Example {
  * Add setTimeout to ensure comparability with jQuery
  *
  */
-setTimeout( () => {
-    providePlugin('example', new Example());
-},0)
+
+ providePlugin('example', new Example());
