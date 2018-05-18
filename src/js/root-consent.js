@@ -239,12 +239,6 @@ export class RootConsent {
             }
         });
 
-        document.addEventListener(`root-consent.plugin.loaded.${name}`, ev => {
-            if (ev.detail.instance !== {}) {
-                this._loadPlugin(ev);
-            }
-        });
-
         fireEvent(this.element, `root-consent.plugin.load.${name}`, options);
 
     }
