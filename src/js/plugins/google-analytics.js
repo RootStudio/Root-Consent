@@ -35,9 +35,14 @@ class GoogleAnalytics {
             a = s.createElement(o),
                 m = s.getElementsByTagName(o)[0];
             a.async = 1;
-            a.src = g;
+            if (typeof g !== 'undefined') {
+                a.src = g;
+            } else {
+                a.src = 'https://www.google-analytics.com/analytics.js';
+            }
             m.parentNode.insertBefore(a, m)
         })(window, document, 'script', this.config.gaScript, 'ga');
+
 
         window.ga('create', this.config.trackingID, this.config.gaSettings);
         window.ga('send', 'pageview');
@@ -45,6 +50,6 @@ class GoogleAnalytics {
     }
 }
 
-setTimeout( () => {
+setTimeout(() => {
     providePlugin('google-analytics', new GoogleAnalytics());
 }, 0)

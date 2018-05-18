@@ -232,11 +232,8 @@ export class RootConsent {
             actioned: false
         });
 
-        //Additional listener for slow loading plugins
         document.addEventListener(`root-consent.plugin.registered.${name}`, ev => {
-            if (ev.detail.instance !== {}) {
-                this._loadPlugin(ev);
-            }
+            this._loadPlugin(ev);
         });
 
         fireEvent(this.element, `root-consent.plugin.load.${name}`, options);
