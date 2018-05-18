@@ -1,7 +1,7 @@
 {
-    "/js/jquery.root-consent.js": "/js/jquery.root-consent.js",
-    "/css/root-consent.css": "/css/root-consent.css",
     "/js/root-consent.js": "/js/root-consent.js",
+    "/css/root-consent.css": "/css/root-consent.css",
+    "/js/jquery.root-consent.js": "/js/jquery.root-consent.js",
     "/js/plugins/google-analytics.js": "/js/plugins/google-analytics.js",
     "/js/plugins/example.js": "/js/plugins/example.js"
 }
