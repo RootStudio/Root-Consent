@@ -1,21 +1,28 @@
 import providePlugin from '../utils/provide-plugin';
+import fireEvent from '../utils/fire-event';
 
 /**
  * This is the simplest example of a plugin, it will output the executed
  * methods to the console. It demonstrates the scaffolding all plugins
  * must use in order to work with the main library.
  *
- * @returns {{onLoad: onLoad, onApprove: onApprove, onDeny: onDeny}}
  * @constructor
  */
-function Example() {
+class Example {
+
+    constructor() {
+        document.addEventListener(`root-consent.plugin.load.example`, this.onLoad);
+    }
 
     /**
      * The `onLoad()` method is called once the plugin script has been
      * loaded and has notified the main library that it is ready. You
      * should use this to set up any configuration objects.
      *
-     * The first parameter of this method contains any configuration
+     * First parameter must consist of the plugin instance, this is initially
+     * passed with the providePlugin function
+     *
+     * The second parameter of this method contains any configuration
      * parameters passed through when using the `registerPlugin()`
      * API method.
      *
@@ -23,8 +30,9 @@ function Example() {
      * is determined. You should *not* load any data collection
      * scripts within this method.
      */
-    function onLoad() {
+    onLoad(instance, options = {}) {
         console.log('PLUGIN REGISTERED');
+        fireEvent(document, 'root-consent.plugin.loaded.example', {name: 'example', instance: instance});
     };
 
     /**
@@ -37,7 +45,7 @@ function Example() {
      * This method will be called on each page load once the consent status
      * has been stored.
      */
-    function onApprove() {
+    onApprove() {
         console.log('PLUGIN CONSENT GIVEN');
     };
 
@@ -49,21 +57,9 @@ function Example() {
      * This method will be called on each page load once the consent status
      * has been stored.
      */
-    function onDeny() {
+    onDeny() {
         console.log('PLUGIN CONSENT DENIED');
     };
-
-    /**
-     * The plugin must return an object exposing these three core methods
-     * as they form the public API of the plugin. You are free to add as many
-     * private methods as required but only the values below will be executed
-     * within the main library.
-     */
-    return {
-        onLoad,
-        onApprove,
-        onDeny
-    }
 }
 
 /**
@@ -72,5 +68,10 @@ function Example() {
  *
  * You must include this or an identical event signature otherwise
  * your plugin will never be loaded into the system.
+ *
+ * Add setTimeout to ensure comparability with jQuery
+ *
  */
-providePlugin('example', new Example());
+setTimeout( () => {
+    providePlugin('example', new Example());
+},0)

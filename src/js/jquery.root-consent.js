@@ -1,4 +1,4 @@
-import {rootConsent} from './root-consent';
+import { RootConsent } from './root-consent';
 
 function init ($) {
     $.fn.rootConsent = function (options) {
@@ -7,7 +7,7 @@ function init ($) {
 
             if (!$.data(this, 'rootConsent')) {
                 instanceOptions = $.extend({}, options, $(this).data());
-                $.data(this, 'rootConsent', rootConsent(this, instanceOptions));
+                $.data(this, 'rootConsent', new RootConsent(this, instanceOptions));
             }
         });
     };

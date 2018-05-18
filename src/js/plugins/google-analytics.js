@@ -1,32 +1,36 @@
 import providePlugin from '../utils/provide-plugin';
 import fireEvent from '../utils/fire-event';
 
-function GoogleAnalytics() {
+class GoogleAnalytics {
 
-    let config = {};
+    constructor() {
 
-    let defaults = {
-        trackingID: 'UA-123',
-        gaScript: 'https://www.google-analytics.com/analytics.js',
-        gaSettings: 'auto',
-        anonymizeIp: false
-    };
+        this.config = {
+            trackingID: 'UA-123',
+            gaScript: 'https://www.google-analytics.com/analytics.js',
+            gaSettings: 'auto',
+            anonymizeIp: false
+        };
 
-    function onLoad(options, instance) {
-        config = {...defaults, ...options};
+        document.addEventListener(`root-consent.plugin.load.google-analytics`, this.onLoad);
+    }
+
+    onLoad(instance, options = {}) {
+        console.log('Analytics loaded');
+        this.config = {...options};
         fireEvent(document, 'root-consent.plugin.loaded.google-analytics', {name: 'google-analytics', instance: instance});
     };
 
-    function onApprove() {
-        _loadAnalyticsScript();
+    onApprove() {
+        this._loadAnalyticsScript();
         console.log('Google Analytics are enabled.')
     };
 
-    function onDeny() {
+    onDeny() {
         console.log('Google Analytics are not enabled.')
     };
 
-    function _loadAnalyticsScript() {
+    _loadAnalyticsScript() {
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
             i[r] = i[r] || function () {
@@ -37,18 +41,14 @@ function GoogleAnalytics() {
             a.async = 1;
             a.src = g;
             m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', config.gaScript, 'ga');
+        })(window, document, 'script', this.config.gaScript, 'ga');
 
-        window.ga('create', config.trackingID, config.gaSettings);
+        window.ga('create', this.config.trackingID, this.config.gaSettings);
         window.ga('send', 'pageview');
-        window.ga('set', 'config.anonymizeIp');
-    }
-
-    return {
-        onLoad,
-        onApprove,
-        onDeny
+        window.ga('set', this.config.anonymizeIp);
     }
 }
 
-providePlugin('google-analytics', new GoogleAnalytics());
+setTimeout( () => {
+    providePlugin('google-analytics', new GoogleAnalytics());
+}, 0)

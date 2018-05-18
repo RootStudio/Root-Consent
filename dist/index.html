@@ -18,9 +18,8 @@
     <script src="./js/root-consent.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const element = document.querySelector('body');
 
-            const Consent = rootConsent(element);
+            var Consent = window.rootConsent('body');
 
             Consent.registerPlugin('example');
             Consent.registerPlugin('google-analytics');

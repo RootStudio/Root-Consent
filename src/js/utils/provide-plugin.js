@@ -5,10 +5,13 @@ import fireEvent from './fire-event';
  * that a plugin has been loaded and is ready for use
  *
  * @param {String} pluginName
- * @param {Function} pluginInstance
+ * @param {Object} pluginInstance
  */
 export default function providePlugin(pluginName, pluginInstance) {
+
     document.addEventListener(`root-consent.plugin.load.${pluginName}`, (ev) => {
-        pluginInstance['onLoad'](ev.detail, pluginInstance)
+        pluginInstance.onLoad(ev.detail, pluginInstance)
     })
+
+    fireEvent(document, `root-consent.plugin.registered.${pluginName}`, {instance: pluginInstance, name: pluginName});
 };
