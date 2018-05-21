@@ -38,7 +38,6 @@ $light-txt-negative: $txt-negative !default;
     padding: 15px 20px;
 }
 
-
 .root-consent__message-title,
 .root-consent__message-text {
     display: block;
@@ -53,7 +52,7 @@ $light-txt-negative: $txt-negative !default;
 }
 
 .root-consent__message-text {
-    line-height: 1rem;
+    line-height: 1.2rem;
     font-size: 0.8rem;
 }
 
@@ -137,6 +136,12 @@ $light-txt-negative: $txt-negative !default;
         background: $dark-bg-negative;
         color: $dark-txt-negative;
     }
+
+
+    .root-consent__message-title,
+    .root-consent__message-text {
+        color: $dark-txt-copy;
+    }
 }
 
 .root-consent--light {
@@ -162,5 +167,6 @@ $light-txt-negative: $txt-negative !default;
 
     .root-consent__message {
         width: 100%;
+        padding-bottom: 0;
     }
 }
