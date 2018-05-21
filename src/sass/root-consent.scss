@@ -53,7 +53,7 @@ $light-txt-negative: $txt-negative !default;
 }
 
 .root-consent__message-text {
-    line-height: 1rem;
+    line-height: 1.2rem;
     font-size: 0.8rem;
 }
 
@@ -136,6 +136,12 @@ $light-txt-negative: $txt-negative !default;
     .root-consent__btn--deny {
         background: $dark-bg-negative;
         color: $dark-txt-negative;
+    }
+
+
+    .root-consent__message-title,
+    .root-consent__message-text {
+        color: $dark-txt-copy;
     }
 }
 
