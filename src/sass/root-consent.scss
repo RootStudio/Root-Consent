@@ -38,7 +38,6 @@ $light-txt-negative: $txt-negative !default;
     padding: 15px 20px;
 }
 
-
 .root-consent__message-title,
 .root-consent__message-text {
     display: block;
@@ -168,5 +167,6 @@ $light-txt-negative: $txt-negative !default;
 
     .root-consent__message {
         width: 100%;
+        padding-bottom: 0;
     }
 }
