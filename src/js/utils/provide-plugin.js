@@ -10,7 +10,6 @@ import fireEvent from './fire-event';
 export default function providePlugin(pluginName, pluginInstance) {
 
     document.addEventListener(`root-consent.plugin.load.${pluginName}`, (ev) => {
-        console.log(ev.detail);
         pluginInstance.onLoad(ev.detail);
 
         // Catches plugins that load before RootConsent has been called
