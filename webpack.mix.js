@@ -9,6 +9,15 @@ mix.js('src/js/jquery.root-consent.js', 'dist/js/jquery.root-consent.js');
 
 mix.js('src/js/plugins/example.js', 'dist/js/plugins/example.js');
 mix.js('src/js/plugins/google-analytics.js', 'dist/js/plugins/google-analytics.js');
+mix.js('src/js/plugins/google-tag-manager.js', 'dist/js/plugins/google-tag-manager.js');
+mix.js('src/js/plugins/facebook-sdk.js', 'dist/js/plugins/facebook-sdk.js');
+mix.js('src/js/plugins/twitter-widget.js', 'dist/js/plugins/twitter-widget.js');
+mix.js([
+    'src/js/plugins/google-analytics.js',
+    'src/js/plugins/google-tag-manager.js',
+    'src/js/plugins/facebook-sdk.js',
+    'src/js/plugins/twitter-widget.js'
+], 'dist/js/plugins/root-consent-plugins.js');
 
 mix.webpackConfig({
     output: {
