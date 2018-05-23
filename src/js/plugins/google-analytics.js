@@ -14,7 +14,10 @@ class GoogleAnalytics {
 
     onLoad(options = {}) {
         console.log('Analytics loaded');
-        this.config = {...options};
+        this.config = {
+            ...this.config,
+            ...options
+        };
     };
 
     onApprove() {
