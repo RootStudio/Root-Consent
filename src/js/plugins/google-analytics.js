@@ -8,11 +8,11 @@ class GoogleAnalytics {
             trackingID: 'UA-123',
             gaScript: 'https://www.google-analytics.com/analytics.js',
             gaSettings: 'auto',
-            anonymizeIp: false
+            anonymizeIp: false,
         };
     }
 
-    onLoad(instance, options = {}) {
+    onLoad(options = {}) {
         console.log('Analytics loaded');
         this.config = {...options};
     };
@@ -44,8 +44,8 @@ class GoogleAnalytics {
         })(window, document, 'script', this.config.gaScript, 'ga');
 
         window.ga('create', this.config.trackingID, this.config.gaSettings);
+        window.ga('set', 'anonymizeIp', this.config.anonymizeIp);
         window.ga('send', 'pageview');
-        window.ga('set', '_anonymizelp', this.config.anonymizeIp);
     }
 }
 
