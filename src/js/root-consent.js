@@ -41,7 +41,6 @@ export class RootConsent {
 
     }
 
-
     /**
      * Generates the consent message template and registered event handlers
      *
@@ -233,6 +232,10 @@ export class RootConsent {
         });
 
         document.addEventListener(`root-consent.plugin.registered.${name}`, ev => {
+            fireEvent(this.element, `root-consent.plugin.load.${name}`, options);
+        });
+
+        document.addEventListener(`root-consent.plugin.loaded.${name}`, ev => {
             this._loadPlugin(ev);
         });
 
