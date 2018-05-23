@@ -43,10 +43,9 @@ class GoogleAnalytics {
             m.parentNode.insertBefore(a, m)
         })(window, document, 'script', this.config.gaScript, 'ga');
 
-
         window.ga('create', this.config.trackingID, this.config.gaSettings);
         window.ga('send', 'pageview');
-        window.ga('set', this.config.anonymizeIp);
+        window.ga('set', '_anonymizelp', this.config.anonymizeIp);
     }
 }
 
