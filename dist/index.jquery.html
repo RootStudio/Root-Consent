@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>GDPR Consent</title>
-    <link rel="stylesheet" href="./css/root-consent.css" />
+    <link rel="stylesheet" href="./css/root-consent.css"/>
     <style type="text/css">
         html, body {
             padding: 0;
@@ -15,17 +15,23 @@
 </head>
 <body>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="./js/jquery.root-consent.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('body').rootConsent({ delay: 500 });
-            $('body').data('rootConsent').registerPlugin('example');
-            $('body').data('rootConsent').registerPlugin('google-analytics');
-        });
-    </script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="./js/jquery.root-consent.js"></script>
+<script>
+    $(document).ready(function () {
+        $('body').rootConsent({delay: 500});
+        $('body').data('rootConsent').registerMultiple([
+            {
+                name: 'example',
+            },
+            {
+                name: 'google-analytics',
+            }
+        ]);
+    });
+</script>
 
-    <script src="./js/plugins/example.js" async></script>
-    <script src="./js/plugins/google-analytics.js" async></script>
+<script src="./js/plugins/example.js" async></script>
+<script src="./js/plugins/google-analytics.js" async></script>
 </body>
 </html>
