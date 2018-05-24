@@ -244,6 +244,17 @@ export class RootConsent {
     }
 
     /**
+     * Registers multiple plugins to improve readability
+     *
+     * @param {Array[{name, options}]} plugins
+     */
+    registerMultiple(plugins) {
+        plugins.forEach( plugin => {
+            this.registerPlugin(plugin.name, plugin.options)
+        })
+    }
+
+    /**
      * Removes the localStorage data and resets the consent status
      *
      * @returns {void}
