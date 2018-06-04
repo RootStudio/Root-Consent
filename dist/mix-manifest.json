@@ -4,6 +4,7 @@
     "/css/root-consent.css": "/css/root-consent.css",
     "/js/jquery.root-consent.js": "/js/jquery.root-consent.js",
     "/js/plugins/twitter-widget.js": "/js/plugins/twitter-widget.js",
+    "/js/plugins/linkedin-plugin.js": "/js/plugins/linkedin-plugin.js",
     "/js/plugins/google-tag-manager.js": "/js/plugins/google-tag-manager.js",
     "/js/plugins/google-analytics.js": "/js/plugins/google-analytics.js",
     "/js/plugins/facebook-sdk.js": "/js/plugins/facebook-sdk.js",
