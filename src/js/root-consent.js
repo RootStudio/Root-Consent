@@ -21,7 +21,7 @@ export class RootConsent {
         if (element instanceof Element) {
             this.element = element
         } else {
-            this.element = this.element.querySelector(element);
+            this.element = document.querySelector(element);
         }
 
         // Converts jQuery Objects to DOM Node
