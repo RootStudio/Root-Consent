@@ -21,7 +21,7 @@ export class RootConsent {
         if (element instanceof Element) {
             this.element = element
         } else {
-            this.element = document.querySelector(element);
+            this.element = this.element.querySelector(element);
         }
 
         // Converts jQuery Objects to DOM Node
@@ -104,7 +104,7 @@ export class RootConsent {
         this.element.appendChild(this._consentMessageTemplate());
 
         setTimeout(() => {
-            document.querySelector('.root-consent').classList.add('root-consent--active');
+            this.element.querySelector('.root-consent').classList.add('root-consent--active');
             fireEvent(this.element, 'root-consent.display');
         }, this.config.delay);
     }
@@ -115,8 +115,11 @@ export class RootConsent {
      * @private
      */
     _hideConsentMessage() {
-        document.querySelector('.root-consent').classList.remove('root-consent--active');
+        const $el = this.element.querySelector('.root-consent').classList.remove('root-consent--active');
         fireEvent(this.element, 'root-consent.hide');
+        setTimeout( () => {
+            $el.remove();
+        }, 200)
     }
 
     /**
