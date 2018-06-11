@@ -115,7 +115,8 @@ export class RootConsent {
      * @private
      */
     _hideConsentMessage() {
-        const $el = this.element.querySelector('.root-consent').classList.remove('root-consent--active');
+        const $el = this.element.querySelector('.root-consent');
+        $el.classList.remove('root-consent--active');
         fireEvent(this.element, 'root-consent.hide');
         setTimeout( () => {
             $el.remove();

@@ -10,7 +10,6 @@ class GoogleTagManager {
     }
 
     onLoad(options = {}) {
-        console.log('Google Tag Manager loaded');
         this.config = {
             ...this.config,
             ...options
