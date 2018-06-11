@@ -15,7 +15,6 @@ class LinkedInWidget {
             $button.style.display = 'none';
         })
 
-        console.log('LinkedIn plugin loaded');
         this.config = {
             ...this.config,
             ...options

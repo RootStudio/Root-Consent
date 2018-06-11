@@ -11,7 +11,6 @@ class FacebookSDK {
     }
 
     onLoad(options = {}) {
-        console.log('FB SDK loaded');
         this.config = {
             ...this.config,
             ...options

@@ -13,7 +13,6 @@ class GoogleAnalytics {
     }
 
     onLoad(options = {}) {
-        console.log('Analytics loaded');
         this.config = {
             ...this.config,
             ...options

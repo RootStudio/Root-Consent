@@ -2,8 +2,8 @@ import providePlugin from '../utils/provide-plugin';
 
 class TwitterWidget {
 
-    constructor() {
-        this.$buttons = Array.from(document.querySelectorAll('.twitter-share-button'));
+    constructor(target = '.twitter-share-button') {
+        this.$buttons = Array.from(document.querySelectorAll(target));
         this.config = {
         };
     }
