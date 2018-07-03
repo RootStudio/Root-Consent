@@ -16,28 +16,28 @@ import defaults from './defaults';
  */
 export class RootConsent {
 
-    constructor(element, options) {
+    constructor ( element, options ) {
 
-        if (element instanceof Element) {
+        if ( element instanceof Element ) {
             this.element = element
         } else {
-            this.element = document.querySelector(element);
+            this.element = document.querySelector( element );
         }
 
         // Converts jQuery Objects to DOM Node
-        if (typeof jQuery !== 'undefined' && this.element instanceof jQuery) {
-            this.element = this.element[0];
+        if ( typeof jQuery !== 'undefined' && this.element instanceof jQuery ) {
+            this.element = this.element[ 0 ];
         }
 
-        this.config = {...defaults, ...options};
+        this.config = { ...defaults, ...options };
 
-        if (!this.hasConsented() && this.isNewVisitor()) {
+        if ( !this.hasConsented() && this.isNewVisitor() ) {
             this._displayConsentMessage();
         }
 
         this.plugins = [];
 
-        fireEvent(this.element, 'root-consent.setup');
+        fireEvent( this.element, 'root-consent.setup' );
 
     }
 
@@ -46,7 +46,7 @@ export class RootConsent {
      *
      * @private
      */
-    _consentMessageTemplate() {
+    _consentMessageTemplate () {
         const {
             messageTitle,
             messageText,
@@ -70,27 +70,36 @@ export class RootConsent {
         `;
 
         try {
-            const template = document.createRange().createContextualFragment(html);
+            const template = document.createRange().createContextualFragment( html );
 
-            template.querySelector('.root-consent__btn--approve').addEventListener('click', () => {
+            template.querySelector( '.root-consent__btn--approve' ).addEventListener( 'click', () => {
                 this.consentApproved()
-            });
-            template.querySelector('.root-consent__btn--deny').addEventListener('click', () => {
-                this.consentDenied()
-            });
+            } );
+            if ( !this.config.alwaysApproved ) {
+                template.querySelector( '.root-consent__btn--deny' ).addEventListener( 'click', () => {
+                    this.consentDenied()
+                } );
+            } else {
+                template.querySelector( '.root-consent__btn--deny' ).style.display = 'none';
+            }
+
             return template;
-        } catch (err) {
+        } catch ( err ) {
 
-            let template = document.createElement('html');
+            let template = document.createElement( 'html' );
             template.innerHTML = html;
-            template = template.cloneNode(true).querySelector('.root-consent');
+            template = template.cloneNode( true ).querySelector( '.root-consent' );
 
-            template.querySelector('.root-consent__btn--approve').addEventListener('click', () => {
+            template.querySelector( '.root-consent__btn--approve' ).addEventListener( 'click', () => {
                 this.consentApproved()
-            });
-            template.querySelector('.root-consent__btn--deny').addEventListener('click', () => {
-                this.consentDenied()
-            });
+            } );
+            if ( !this.config.alwaysApproved ) {
+                template.querySelector( '.root-consent__btn--deny' ).addEventListener( 'click', () => {
+                    this.consentDenied()
+                } );
+            } else {
+                template.querySelector( '.root-consent__btn--deny' ).style.display = 'none';
+            }
             return template;
         }
     }
@@ -100,13 +109,13 @@ export class RootConsent {
      *
      * @private
      */
-    _displayConsentMessage() {
-        this.element.appendChild(this._consentMessageTemplate());
+    _displayConsentMessage () {
+        this.element.appendChild( this._consentMessageTemplate() );
 
-        setTimeout(() => {
-            this.element.querySelector('.root-consent').classList.add('root-consent--active');
-            fireEvent(this.element, 'root-consent.display');
-        }, this.config.delay);
+        setTimeout( () => {
+            this.element.querySelector( '.root-consent' ).classList.add( 'root-consent--active' );
+            fireEvent( this.element, 'root-consent.display' );
+        }, this.config.delay );
     }
 
     /**
@@ -114,13 +123,13 @@ export class RootConsent {
      *
      * @private
      */
-    _hideConsentMessage() {
-        const $el = this.element.querySelector('.root-consent');
-        $el.classList.remove('root-consent--active');
-        fireEvent(this.element, 'root-consent.hide');
+    _hideConsentMessage () {
+        const $el = this.element.querySelector( '.root-consent' );
+        $el.classList.remove( 'root-consent--active' );
+        fireEvent( this.element, 'root-consent.hide' );
         setTimeout( () => {
             $el.remove();
-        }, 200)
+        }, 200 )
     }
 
     /**
@@ -130,18 +139,17 @@ export class RootConsent {
      * @param {detail}
      * @private
      */
-    _loadPlugin({detail}) {
-        const {instance, name} = detail;
+    _loadPlugin ( { detail } ) {
+        const { instance, name } = detail;
 
         // Find plugin in stack
-        const plugin = this.plugins.find(p => {
+        const plugin = this.plugins.find( p => {
             return p.name === name;
-        });
+        } );
 
         // Update with new information
         plugin.instance = instance;
         plugin.loaded = true;
-
         this._actionPlugins();
     }
 
@@ -151,21 +159,21 @@ export class RootConsent {
      *
      * @private
      */
-    _actionPlugins() {
-        if (this.isNewVisitor()) return;
+    _actionPlugins () {
+        if ( this.isNewVisitor() && ! this.config.alwaysApproved) return;
 
-        const fireApprove = this.hasConsented();
+        const fireApprove = this.hasConsented() || this.config.alwaysApproved;
 
-        this.plugins.filter(plugin => plugin.loaded && !plugin.actioned).forEach(plugin => {
-            const {name, instance} = plugin;
+        this.plugins.filter( plugin => plugin.loaded && !plugin.actioned ).forEach( plugin => {
+            const { name, instance } = plugin;
             fireApprove ? instance.onApprove() : instance.onDeny();
-            fireEvent(this.element, `root-consent.plugin.${name}.${fireApprove ? 'approve' : 'deny'}`, {
+            fireEvent( this.element, `root-consent.plugin.${name}.${fireApprove ? 'approve' : 'deny'}`, {
                 name,
                 instance
-            });
+            } );
 
             plugin.actioned = true;
-        });
+        } );
     }
 
     /**
@@ -173,10 +181,10 @@ export class RootConsent {
      *
      * @returns {Void}
      */
-    consentApproved() {
-        localStorage.setItem(this.config.storageKey, JSON.stringify({consent: true, date: Date.now()}));
+    consentApproved () {
+        localStorage.setItem( this.config.storageKey, JSON.stringify( { consent: true, date: Date.now() } ) );
 
-        fireEvent(this.element, 'root-consent.approve');
+        fireEvent( this.element, 'root-consent.approve' );
 
         this._hideConsentMessage();
         this._actionPlugins();
@@ -187,10 +195,10 @@ export class RootConsent {
      *
      * @returns {Void}
      */
-    consentDenied() {
-        localStorage.setItem(this.config.storageKey, JSON.stringify({consent: false, date: Date.now()}));
+    consentDenied () {
+        localStorage.setItem( this.config.storageKey, JSON.stringify( { consent: false, date: Date.now() } ) );
 
-        fireEvent(this.element, 'root-consent.deny');
+        fireEvent( this.element, 'root-consent.deny' );
 
         this._hideConsentMessage();
 
@@ -203,8 +211,8 @@ export class RootConsent {
      *
      * @returns {Boolean}
      */
-    isNewVisitor() {
-        const data = JSON.parse(localStorage.getItem(this.config.storageKey));
+    isNewVisitor () {
+        const data = JSON.parse( localStorage.getItem( this.config.storageKey ) );
         return data === null;
     }
 
@@ -213,10 +221,10 @@ export class RootConsent {
      *
      * @returns {Boolean}
      */
-    hasConsented() {
-        const data = JSON.parse(localStorage.getItem(this.config.storageKey));
+    hasConsented () {
+        const data = JSON.parse( localStorage.getItem( this.config.storageKey ) );
 
-        return data && data.consent && !this.consentExpired(data.date);
+        return data && data.consent && !this.consentExpired( data.date );
     }
 
     /**
@@ -226,24 +234,24 @@ export class RootConsent {
      * @param {String} name
      * @param {Object} options
      */
-    registerPlugin(name, options = {}) {
-        this.plugins.push({
-            name,
-            options,
-            instance: false,
-            loaded: false,
-            actioned: false
-        });
+    registerPlugin ( name, options = {} ) {
+        this.plugins.push( {
+                               name,
+                               options,
+                               instance: false,
+                               loaded: false,
+                               actioned: false
+                           } );
 
-        document.addEventListener(`root-consent.plugin.registered.${name}`, ev => {
-            fireEvent(this.element, `root-consent.plugin.load.${name}`, options);
-        });
+        document.addEventListener( `root-consent.plugin.registered.${name}`, ev => {
+            fireEvent( this.element, `root-consent.plugin.load.${name}`, options );
+        } );
 
-        document.addEventListener(`root-consent.plugin.loaded.${name}`, ev => {
-            this._loadPlugin(ev);
-        });
+        document.addEventListener( `root-consent.plugin.loaded.${name}`, ev => {
+            this._loadPlugin( ev );
+        } );
 
-        fireEvent(this.element, `root-consent.plugin.load.${name}`, options);
+        fireEvent( this.element, `root-consent.plugin.load.${name}`, options );
 
     }
 
@@ -252,10 +260,10 @@ export class RootConsent {
      *
      * @param {Array[{name, options}]} plugins
      */
-    registerMultiple(plugins) {
+    registerMultiple ( plugins ) {
         plugins.forEach( plugin => {
-            this.registerPlugin(plugin.name, plugin.options)
-        })
+            this.registerPlugin( plugin.name, plugin.options )
+        } )
     }
 
     /**
@@ -263,19 +271,19 @@ export class RootConsent {
      *
      * @returns {void}
      */
-    destroy() {
-        localStorage.removeItem(this.config.storageKey);
+    destroy () {
+        localStorage.removeItem( this.config.storageKey );
 
-        fireEvent(this.element, 'root-consent.destroy');
+        fireEvent( this.element, 'root-consent.destroy' );
     }
 
-    consentExpired(date) {
+    consentExpired ( date ) {
 
-        date = new Date(date);
+        date = new Date( date );
         const today = new Date();
-        const diff = Math.abs(today.getTime() - date.getTime());
+        const diff = Math.abs( today.getTime() - date.getTime() );
 
-        if ((diff / this.config.expiryFrame) > this.config.expiry) {
+        if ( ( diff / this.config.expiryFrame ) > this.config.expiry ) {
             this.destroy();
             return true;
         }
@@ -283,6 +291,6 @@ export class RootConsent {
     }
 };
 
-window.rootConsent = (element, options) => {
-    return new RootConsent(element, options);
+window.rootConsent = ( element, options ) => {
+    return new RootConsent( element, options );
 }

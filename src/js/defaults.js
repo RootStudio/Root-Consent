@@ -75,6 +75,13 @@ export default {
      *
      * @string {theme}
      */
-    theme: 'dark'
+    theme: 'dark',
+
+    /**
+     * Always Approved
+     *
+     * @boolean {alwaysApproved}
+     */
+    alwaysApproved: false
 
 };

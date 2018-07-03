@@ -1,1 +1,308 @@
-!function(t,e){if("object"==typeof exports&&"object"==typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var n=e();for(var o in n)("object"==typeof exports?exports:t)[o]=n[o]}}("undefined"!=typeof self?self:this,function(){return function(t){var e={};function n(o){if(e[o])return e[o].exports;var r=e[o]={i:o,l:!1,exports:{}};return t[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}return n.m=t,n.c=e,n.d=function(t,e,o){n.o(t,e)||Object.defineProperty(t,e,{configurable:!1,enumerable:!0,get:o})},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="",n(n.s=21)}({0:function(t,e,n){"use strict";e.a=function(t,e,n){var o=new r.a(e,{bubbles:!0,cancelable:!0,detail:n});t.dispatchEvent(o)};var o=n(1),r=n.n(o)},1:function(t,e,n){(function(e){var n=e.CustomEvent;t.exports=function(){try{var t=new n("cat",{detail:{foo:"bar"}});return"cat"===t.type&&"bar"===t.detail.foo}catch(t){}return!1}()?n:"undefined"!=typeof document&&"function"==typeof document.createEvent?function(t,e){var n=document.createEvent("CustomEvent");return e?n.initCustomEvent(t,e.bubbles,e.cancelable,e.detail):n.initCustomEvent(t,!1,!1,void 0),n}:function(t,e){var n=document.createEventObject();return n.type=t,e?(n.bubbles=Boolean(e.bubbles),n.cancelable=Boolean(e.cancelable),n.detail=e.detail):(n.bubbles=!1,n.cancelable=!1,n.detail=void 0),n}}).call(e,n(2))},10:function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(3),r=Object.assign||function(t){for(var e=1;e<arguments.length;e++){var n=arguments[e];for(var o in n)Object.prototype.hasOwnProperty.call(n,o)&&(t[o]=n[o])}return t},i=function(){function t(t,e){for(var n=0;n<e.length;n++){var o=e[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(t,o.key,o)}}return function(e,n,o){return n&&t(e.prototype,n),o&&t(e,o),e}}();var c=function(){function t(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:".twitter-share-button";!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.$buttons=Array.from(document.querySelectorAll(e)),this.config={}}return i(t,[{key:"onLoad",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};this.$buttons.forEach(function(t){t.style.display="none"}),console.log("Twitter widget loaded"),this.config=r({},this.config,t)}},{key:"onApprove",value:function(){this._loadSDK(),console.log("Twitter Widget is enabled.")}},{key:"onDeny",value:function(){console.log("Twitter Widget is not enabled.")}},{key:"_loadSDK",value:function(){var t,e,n,o,r,i;this.$buttons.forEach(function(t){t.style.display="inherit"}),t=document,e="script",n="twitter-wjs",r=t.getElementsByTagName(e)[0],i=/^http:/.test(t.location)?"http":"https",t.getElementById(n)||((o=t.createElement(e)).id=n,o.src=i+"://platform.twitter.com/widgets.js",r.parentNode.insertBefore(o,r))}}]),t}();setTimeout(function(){Object(o.a)("twitter-widget",new c)},0)},2:function(t,e){var n;n=function(){return this}();try{n=n||Function("return this")()||(0,eval)("this")}catch(t){"object"==typeof window&&(n=window)}t.exports=n},21:function(t,e,n){t.exports=n(10)},3:function(t,e,n){"use strict";e.a=function(t,e){document.addEventListener("root-consent.plugin.load."+t,function(n){e.onLoad(n.detail),Object(o.a)(document,"root-consent.plugin.loaded."+t,{instance:e,name:t})}),Object(o.a)(document,"root-consent.plugin.registered."+t,{instance:e,name:t})};var o=n(0)}})});
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else {
+		var a = factory();
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(typeof self !== 'undefined' ? self : this, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 23);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 0:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = fireEvent;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_custom_event__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_custom_event___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_custom_event__);
+
+
+/**
+ * Convenience wrapper for firing a custom event natively
+ * across all browsers.
+ *
+ * @param {Element} element
+ * @param {String} type
+ * @param {String|Object|Number|Boolean} detail
+ */
+function fireEvent(element, type, detail) {
+    var event = new __WEBPACK_IMPORTED_MODULE_0_custom_event___default.a(type, {
+        bubbles: true,
+        cancelable: true,
+        detail: detail
+    });
+
+    element.dispatchEvent(event);
+}
+
+/***/ }),
+
+/***/ 1:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {
+var NativeCustomEvent = global.CustomEvent;
+
+function useNative () {
+  try {
+    var p = new NativeCustomEvent('cat', { detail: { foo: 'bar' } });
+    return  'cat' === p.type && 'bar' === p.detail.foo;
+  } catch (e) {
+  }
+  return false;
+}
+
+/**
+ * Cross-browser `CustomEvent` constructor.
+ *
+ * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent.CustomEvent
+ *
+ * @public
+ */
+
+module.exports = useNative() ? NativeCustomEvent :
+
+// IE >= 9
+'undefined' !== typeof document && 'function' === typeof document.createEvent ? function CustomEvent (type, params) {
+  var e = document.createEvent('CustomEvent');
+  if (params) {
+    e.initCustomEvent(type, params.bubbles, params.cancelable, params.detail);
+  } else {
+    e.initCustomEvent(type, false, false, void 0);
+  }
+  return e;
+} :
+
+// IE <= 8
+function CustomEvent (type, params) {
+  var e = document.createEventObject();
+  e.type = type;
+  if (params) {
+    e.bubbles = Boolean(params.bubbles);
+    e.cancelable = Boolean(params.cancelable);
+    e.detail = params.detail;
+  } else {
+    e.bubbles = false;
+    e.cancelable = false;
+    e.detail = void 0;
+  }
+  return e;
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+
+/***/ 12:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_provide_plugin__ = __webpack_require__(3);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+var TwitterWidget = function () {
+    function TwitterWidget() {
+        var target = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '.twitter-share-button';
+
+        _classCallCheck(this, TwitterWidget);
+
+        this.$buttons = Array.from(document.querySelectorAll(target));
+        this.config = {};
+    }
+
+    _createClass(TwitterWidget, [{
+        key: 'onLoad',
+        value: function onLoad() {
+            var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+
+            this.$buttons.forEach(function ($button) {
+                $button.style.display = 'none';
+            });
+
+            console.log('Twitter widget loaded');
+            this.config = _extends({}, this.config, options);
+        }
+    }, {
+        key: 'onApprove',
+        value: function onApprove() {
+            this._loadSDK();
+            console.log('Twitter Widget is enabled.');
+        }
+    }, {
+        key: 'onDeny',
+        value: function onDeny() {
+            console.log('Twitter Widget is not enabled.');
+        }
+    }, {
+        key: '_loadSDK',
+        value: function _loadSDK() {
+
+            this.$buttons.forEach(function ($button) {
+                $button.style.display = 'inherit';
+            });
+
+            !function (d, s, id) {
+                var js,
+                    fjs = d.getElementsByTagName(s)[0],
+                    p = /^http:/.test(d.location) ? 'http' : 'https';
+                if (!d.getElementById(id)) {
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = p + '://platform.twitter.com/widgets.js';
+                    fjs.parentNode.insertBefore(js, fjs);
+                }
+            }(document, 'script', 'twitter-wjs');
+        }
+    }]);
+
+    return TwitterWidget;
+}();
+
+setTimeout(function () {
+    Object(__WEBPACK_IMPORTED_MODULE_0__utils_provide_plugin__["a" /* default */])('twitter-widget', new TwitterWidget());
+}, 0);
+
+/***/ }),
+
+/***/ 2:
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 23:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(12);
+
+
+/***/ }),
+
+/***/ 3:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = providePlugin;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fire_event__ = __webpack_require__(0);
+
+
+/**
+ * Convenience wrapper for notifying the main library
+ * that a plugin has been loaded and is ready for use
+ *
+ * @param {String} pluginName
+ * @param {Object} pluginInstance
+ */
+function providePlugin(pluginName, pluginInstance) {
+
+    document.addEventListener('root-consent.plugin.load.' + pluginName, function (ev) {
+        pluginInstance.onLoad(ev.detail);
+
+        // Catches plugins that load before RootConsent has been called
+        Object(__WEBPACK_IMPORTED_MODULE_0__fire_event__["a" /* default */])(document, 'root-consent.plugin.loaded.' + pluginName, { instance: pluginInstance, name: pluginName });
+    });
+
+    Object(__WEBPACK_IMPORTED_MODULE_0__fire_event__["a" /* default */])(document, 'root-consent.plugin.registered.' + pluginName, { instance: pluginInstance, name: pluginName });
+};
+
+/***/ })
+
+/******/ });
+});
