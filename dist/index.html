@@ -19,7 +19,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
-            var Consent = window.rootConsent('body');
+            var Consent = rootConsent('body', {
+                alwaysApproved: true
+            });
 
             Consent.registerPlugin('example');
             Consent.registerPlugin('google-analytics');
