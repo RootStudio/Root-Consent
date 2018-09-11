@@ -1,6 +1,6 @@
 # Root Consent
 
-This library can be used to provide GDPR compliant consent screen that allows users to opt-in explicity for data collection.
+This library can be used to provide GDPR compliant consent screen that allows users to opt-in explicitly for data collection. Also has the option to set the consent as always approved
 
 ## Installation
 
@@ -12,10 +12,9 @@ The library can be installed via NPM or included in your page:
 #### ES6
 
 ```js
-import rootConsent from 'root-consent';
+import RootConsent from 'root-consent';
 
-const element = document.querySelector('body');
-const consent = new rootConsent(element, {
+const consent = new RootConsent('body', {
 	delay: 500
 });
 ```
@@ -26,8 +25,7 @@ const consent = new rootConsent(element, {
 <script src="./js/root-consent.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const element = document.querySelector('body');
-        const consent = rootConsent(element, {
+        const consent = rootConsent('body', {
         	delay: 500
         });
     });
@@ -60,12 +58,12 @@ The library is designed to be customisable, you can configure the text, theme an
 	<tr>
 		<td>messageTitle</td>
 		<td>String</td>
-		<td></td>
+		<td>Your Right to Privacy</td>
 	</tr>
 	<tr>
 		<td>messageText</td>
 		<td>String</td>
-		<td></td>
+		<td>This website uses analytics software - do you wish to be included in the collected data? Find out more in our Privacy Policy.</td>
 	</tr>
 	<tr>
 		<td>approveLabel</td>
@@ -88,6 +86,16 @@ The library is designed to be customisable, you can configure the text, theme an
 		<td>1000</td>
 	</tr>
 	<tr>
+		<td>expiryFrame</td>
+		<td>Integer</td>
+		<td>(1000 * 60 * 60 * 24)</td>
+	</tr>
+	<tr>
+		<td>expiry</td>
+		<td>Integer</td>
+		<td>30</td>
+	</tr>
+	<tr>
 		<td>position</td>
 		<td>top, top-right, top-left, bottom, bottom-right, bottom-left</td>
 		<td>bottom</td>
@@ -97,6 +105,11 @@ The library is designed to be customisable, you can configure the text, theme an
 		<td>light, dark</td>
 		<td>dark</td>
 	</tr>
+	<tr>
+		<td>alwaysApproved</td>
+		<td>boolean</td>
+		<td>false</td>
+	</tr>
 </table>
 
 ## Plugins
@@ -104,22 +117,61 @@ The library is designed to be customisable, you can configure the text, theme an
 This library makes no assumptions on which analytics package or tracking software is used on your site. The control of such things is left up to you through the extendable plugin system.
 
 Plugins can be registered asynchronously like so:
+#### ES6
 
+```js
+import RootConsent from 'root-consent';
+import Example from 'path/toexample';
+
+const consent = new RootConsent('body', {
+	delay: 500
+});
+
+consent.registerPlugin('example', {
+    //Options object here
+});
+```
+
+#### HTML
 ```html
 <script src="./js/root-consent.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const element = document.querySelector('body');
+        document.addEventListener('DOMContentLoaded', function() {
 
-        const consent = rootConsent(element);
+            var Consent = rootConsent('body', {
+                //Options object here
+            });
 
-        consent.registerPlugin('example');
-    });
+            Consent.registerPlugin('example', {
+                //Options object here
+            });
+        });
 </script>
 <script src="./js/plugins/example.js" async></script>
 ```
 
 You can pass any options through to the plugin by adding a second parameter to the `registerPlugin` method. This will be passed through to the `onLoad()` method within the plugin instance.
+```js
+import RootConsent from 'root-consent';
+import Plugin1 from 'path/to/plugin1';
+import Plugin2 from 'path/to/plugin2';
+
+const consent = new RootConsent('body', {
+	delay: 500
+});
+
+consent.registerMultiple([
+    {
+        name: 'Plugin1'
+        options: {}
+    },
+    {
+        name: 'Plugin2'
+        options: {}
+    }
+]);
+```
+Its also possible to register multiple plugins at one
 
 ### Developing Plugins
 
@@ -130,24 +182,23 @@ Here is a simple example:
 ```js
 import providePlugin from 'root-consent/src/js/utils/provide-plugin';
 
-function Example() {
-    function onLoad() {
+class Example {
+
+    // Set any default config options here
+    constructor () {
+    }
+    
+    onLoad() {
         console.log('PLUGIN REGISTERED');
     };
 
-    function onApprove() {
+    onApprove() {
         console.log('PLUGIN CONSENT GIVEN');
     };
 
-    function onDeny() {
+    onDeny() {
         console.log('PLUGIN CONSENT DENIED');
     };
-
-    return {
-        onLoad,
-        onApprove,
-        onDeny
-    }
 }
 
 providePlugin('example', new Example());
@@ -156,14 +207,20 @@ providePlugin('example', new Example());
 The `providePlugin` utility is a helper utility to correctly dispatch the loaded event so the main library can complete the plugin registration. The same functionality can be replicated using:
 
 ```js
-document.dispatchEvent(new CustomEvent(`root-consent.plugin.load.${pluginName}`, {
-    bubbles: true,
-    cancelable: true,
-    details: {
-        name: 'example',
-        instance: new Example()
-    }
-}));
+document.addEventListener( `root-consent.plugin.${pluginName}.load`, ( ev ) => {
+    pluginInstance.onLoad( ev.detail );
+
+    // Catches plugins that load before RootConsent has been called
+    fireEvent( document, `root-consent.plugin.${pluginName}.loaded`, {
+        instance: pluginInstance,
+        name: pluginName
+    } );
+} )
+
+fireEvent( document, `root-consent.plugin.${pluginName}.registered`, {
+    instance: pluginInstance,
+    name: pluginName
+} );
 ```
 
 **Note:** you should ensure the plugin name used for registering matches the plugin name passed to the provide event.
@@ -207,6 +264,14 @@ The library fires events on the associated DOM Node as actions are completed:
 	</tr>
 	<tr>
 		<td>root-consent.plugin.[NAME].deny</td>
+		<td>name, instance</td>
+	</tr>
+	<tr>
+		<td>root-consent.plugin.[NAME].loaded</td>
+		<td>name, instance</td>
+	</tr>
+	<tr>
+		<td>root-consent.plugin.[NAME].registered</td>
 		<td>name, instance</td>
 	</tr>
 </table>
