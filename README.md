@@ -256,22 +256,22 @@ The library fires events on the associated DOM Node as actions are completed:
 	</tr>
 	<tr>
 		<td>root-consent.plugin.[NAME].load</td>
-		<td>name, instance</td>
+		<td>options</td>
 	</tr>
 	<tr>
 		<td>root-consent.plugin.[NAME].approve</td>
-		<td>name, instance</td>
+		<td>{instance, name}</td>
 	</tr>
 	<tr>
 		<td>root-consent.plugin.[NAME].deny</td>
-		<td>name, instance</td>
+		<td>{instance, name}</td>
 	</tr>
 	<tr>
 		<td>root-consent.plugin.[NAME].loaded</td>
-		<td>name, instance</td>
+		<td>instance, name</td>
 	</tr>
 	<tr>
 		<td>root-consent.plugin.[NAME].registered</td>
-		<td>name, instance</td>
+		<td>instance, name</td>
 	</tr>
 </table>
