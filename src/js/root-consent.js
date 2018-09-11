@@ -9,7 +9,7 @@ import defaults from './defaults';
  *
  * @author James Wigger <james@rootstudio.co.uk>
  *
- * @param {Element} element
+ * @param {Element} element|string
  * @param {Object} options
  * @returns {Object}
  * @constructor
@@ -18,6 +18,7 @@ export class RootConsent {
 
     constructor ( element, options ) {
 
+        //Checks if element is an Element or whether we need to find it
         if ( element instanceof Element ) {
             this.element = element
         } else {
@@ -40,7 +41,7 @@ export class RootConsent {
         fireEvent( this.element, 'root-consent.setup' );
 
     }
-
+//unnecessary
     /**
      * Generates the consent message template and registered event handlers
      *
@@ -56,6 +57,7 @@ export class RootConsent {
             theme
         } = this.config;
 
+        //Interstitial template
         const html = `
             <div class="root-consent root-consent--${position} root-consent--${theme}">
                 <div class="root-consent__message">
@@ -69,6 +71,7 @@ export class RootConsent {
             </div>
         `;
 
+        //Support for ie 11
         try {
             const template = document.createRange().createContextualFragment( html );
 
@@ -160,11 +163,13 @@ export class RootConsent {
      * @private
      */
     _actionPlugins () {
-        if ( this.isNewVisitor() && ! this.config.alwaysApproved) return;
+        if ( this.isNewVisitor() && !this.config.alwaysApproved ) return;
 
         const fireApprove = this.hasConsented() || this.config.alwaysApproved;
 
-        this.plugins.filter( plugin => plugin.loaded && !plugin.actioned ).forEach( plugin => {
+        this.plugins
+            .filter( plugin => plugin.loaded && !plugin.actioned )
+            .forEach( plugin => {
             const { name, instance } = plugin;
             fireApprove ? instance.onApprove() : instance.onDeny();
             fireEvent( this.element, `root-consent.plugin.${name}.${fireApprove ? 'approve' : 'deny'}`, {
@@ -228,8 +233,7 @@ export class RootConsent {
     }
 
     /**
-     * Registers a new plugin with the library and attaches the
-     * event listener for the plugin to announce load state.
+     * Registers a new plugin with the library, checks if the plugin has already been loaded and fires events accordingly otherwise attaches listener for Plugin to load
      *
      * @param {String} name
      * @param {Object} options
@@ -243,15 +247,15 @@ export class RootConsent {
                                actioned: false
                            } );
 
-        document.addEventListener( `root-consent.plugin.registered.${name}`, ev => {
-            fireEvent( this.element, `root-consent.plugin.load.${name}`, options );
+        document.addEventListener( `root-consent.plugin.${name}.registered`, ev => {
+            fireEvent( this.element, `root-consent.plugin.${name}.load`, options );
         } );
 
-        document.addEventListener( `root-consent.plugin.loaded.${name}`, ev => {
+        document.addEventListener( `root-consent.plugin.${name}.loaded`, ev => {
             this._loadPlugin( ev );
         } );
 
-        fireEvent( this.element, `root-consent.plugin.load.${name}`, options );
+        fireEvent( this.element, `root-consent.plugin.${name}.load`, options );
 
     }
 

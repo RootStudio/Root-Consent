@@ -10,7 +10,7 @@ import providePlugin from '../utils/provide-plugin';
 class Example {
 
     // Set any default config options here
-    constructor() {
+    constructor () {
     }
 
     /**
@@ -26,8 +26,10 @@ class Example {
      * is determined. You should *not* load any data collection
      * scripts within this method.
      */
-    onLoad() {
-        console.log('PLUGIN REGISTERED');
+    onLoad () {
+        if (process.env.NODE_ENV !== "production") {
+            console.log( 'PLUGIN REGISTERED' );
+        }
     };
 
     /**
@@ -40,8 +42,10 @@ class Example {
      * This method will be called on each page load once the consent status
      * has been stored.
      */
-    onApprove() {
-        console.log('PLUGIN CONSENT GIVEN');
+    onApprove () {
+        if (process.env.NODE_ENV !== "production") {
+            console.log( 'PLUGIN CONSENT GIVEN' );
+        }
     };
 
     /**
@@ -52,8 +56,10 @@ class Example {
      * This method will be called on each page load once the consent status
      * has been stored.
      */
-    onDeny() {
-        console.log('PLUGIN CONSENT DENIED');
+    onDeny () {
+        if (process.env.NODE_ENV !== "production") {
+            console.log( 'PLUGIN CONSENT DENIED' );
+        }
     };
 }
 
@@ -64,9 +70,8 @@ class Example {
  * You must include this or an identical event signature otherwise
  * your plugin will never be loaded into the system.
  *
- * Add setTimeout to ensure comparability with jQuery
+ * Add setTimeout to ensure compatability with jQuery
  *
  */
-setTimeout( () => {
-    providePlugin('example', new Example());
-},0)
+
+providePlugin( 'example', new Example() );

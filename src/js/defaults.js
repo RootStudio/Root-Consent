@@ -36,13 +36,6 @@ export default {
     storageKey: 'root-consent',
 
     /**
-     * The localStorage key that consent date is stored under
-     *
-     * @string {storageDate}
-     */
-    storageDate: 'root-date',
-
-    /**
      * Delay length from page load to displaying the consent message
      *
      * @integer {delay}
