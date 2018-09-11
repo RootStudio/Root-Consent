@@ -2,18 +2,22 @@ import providePlugin from '../utils/provide-plugin';
 
 class LinkedInWidget {
 
-    constructor(target = '.ln-share-button') {
-        this.$buttons = Array.from(document.querySelectorAll(target));
+    constructor ( target = '.ln-share-button' ) {
+        this.$buttons = Array.from( document.querySelectorAll( target ) );
         this.config = {
             type: 'IN/Share'
         };
     }
 
-    onLoad(options = {}) {
+    onLoad ( options = {} ) {
+
+        if ( process.env.NODE_ENV !== 'production' ) {
+            console.log( 'LinkedIn plugin registered.' )
+        }
 
         this.$buttons.forEach( $button => {
             $button.style.display = 'none';
-        })
+        } )
 
         this.config = {
             ...this.config,
@@ -21,34 +25,36 @@ class LinkedInWidget {
         };
     };
 
-    onApprove() {
+    onApprove () {
         this._loadSDK();
-        console.log('LinkedIn plugin is enabled.')
+        if ( process.env.NODE_ENV !== 'production' ) {
+            console.log( 'LinkedIn plugin is enabled.' )
+        }
     };
 
-    onDeny() {
-        console.log('LinkedIn plugin is not enabled.')
+    onDeny () {
+        if ( process.env.NODE_ENV !== 'production' ) {
+            console.log( 'LinkedIn plugin is not enabled.' )
+        }
     };
 
-    _loadSDK() {
+    _loadSDK () {
 
         this.$buttons.forEach( $button => {
             $button.style.display = 'inherit';
 
-            const script = document.createElement('script');
-            script.setAttribute('type', 'IN/Share');
-            $button.appendChild(script);
-        })
+            const script = document.createElement( 'script' );
+            script.setAttribute( 'type', 'IN/Share' );
+            $button.appendChild( script );
+        } )
 
-        const script = document.createElement('script');
-        script.setAttribute('type', 'text/javascript');
+        const script = document.createElement( 'script' );
+        script.setAttribute( 'type', 'text/javascript' );
         script.src = '//platform.linkedin.com/in.js';
-        document.querySelector('body').appendChild(script);
+        document.querySelector( 'body' ).appendChild( script );
 
 
     }
 }
 
-setTimeout(() => {
-    providePlugin('linkedin-plugin', new LinkedInWidget());
-}, 0)
+providePlugin( 'linkedin-plugin', new LinkedInWidget() );

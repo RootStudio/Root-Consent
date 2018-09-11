@@ -13,6 +13,7 @@ class GoogleAnalytics {
     }
 
     onLoad(options = {}) {
+        console.log('Google Analytics Registered.')
         this.config = {
             ...this.config,
             ...options
@@ -51,6 +52,4 @@ class GoogleAnalytics {
     }
 }
 
-setTimeout(() => {
-    providePlugin('google-analytics', new GoogleAnalytics());
-}, 0)
+providePlugin('google-analytics', new GoogleAnalytics());
