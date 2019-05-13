@@ -22,11 +22,15 @@ class GoogleAnalytics {
 
     onApprove() {
         this._loadAnalyticsScript();
-        console.log('Google Analytics are enabled.')
+        if (process.env.NODE_ENV !== "production") {
+            console.log( 'Google Analytics are enabled.' )
+        }
     };
 
     onDeny() {
-        console.log('Google Analytics are not enabled.')
+        if (process.env.NODE_ENV !== "production") {
+            console.log( 'Google Analytics are not enabled.' )
+        }
     };
 
     _loadAnalyticsScript() {

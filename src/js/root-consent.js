@@ -1,5 +1,4 @@
 //Polyfills
-import './polyfills/polyfill';
 
 import fireEvent from './utils/fire-event';
 import defaults from './defaults';

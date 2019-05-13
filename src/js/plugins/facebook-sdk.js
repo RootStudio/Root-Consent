@@ -19,11 +19,16 @@ class FacebookSDK {
 
     onApprove () {
         this._loadSDK();
-        console.log( 'Facebook SDK is enabled.' )
+
+        if (process.env.NODE_ENV !== "production") {
+            console.log( 'Facebook SDK is enabled.' )
+        }
     };
 
     onDeny () {
-        console.log( 'Facebook SDK is not enabled.' )
+        if (process.env.NODE_ENV !== "production") {
+            console.log( 'Facebook SDK is not enabled.' )
+        }
     };
 
     _loadSDK () {

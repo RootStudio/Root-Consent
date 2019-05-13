@@ -2,7 +2,7 @@ let mix = require('laravel-mix');
 
 mix.setPublicPath('dist');
 
-mix.sass('src/sass/root-consent.scss', 'dist/css/root-consent.css');
+mix.sass('src/sass/default.scss', 'dist/css/root-consent.css');
 
 mix.js('src/js/root-consent.js', 'dist/js/root-consent.js');
 mix.js('src/js/jquery.root-consent.js', 'dist/js/jquery.root-consent.js');
@@ -13,12 +13,14 @@ mix.js('src/js/plugins/google-tag-manager.js', 'dist/js/plugins/google-tag-manag
 mix.js('src/js/plugins/facebook-sdk.js', 'dist/js/plugins/facebook-sdk.js');
 mix.js('src/js/plugins/twitter-widget.js', 'dist/js/plugins/twitter-widget.js');
 mix.js('src/js/plugins/linkedin-plugin.js', 'dist/js/plugins/linkedin-plugin.js');
+mix.js('src/js/plugins/DGM.js', 'dist/js/plugins/DGM.js');
 mix.js([
     'src/js/plugins/google-analytics.js',
     'src/js/plugins/google-tag-manager.js',
     'src/js/plugins/facebook-sdk.js',
     'src/js/plugins/twitter-widget.js',
-    'src/js/plugins/linkedin-plugin.js'
+    'src/js/plugins/linkedin-plugin.js',
+    'src/js/plugins/DGM.js'
 ], 'dist/js/plugins/root-consent-plugins.js');
 
 mix.webpackConfig({

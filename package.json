@@ -1,8 +1,8 @@
 {
     "name": "root-consent",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "Provides a configurable way of obtaining explicit consent from users for tracking purposes",
-    "private": true,
+    "private": false,
     "main": "dist/js/root-consent.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,7 +11,10 @@
         "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "build-css": "node-sass --include-path scss src/sass/root-consent.scss dist/css/root-consent.css"
     },
-    "author": "James Wigger <james@rootstudio.co.uk>",
+    "author": "Byron Fitzgerald <byron@rootstudio.co.uk>",
+    "contributors": [
+        "James Wigger"
+    ],
     "license": "MIT",
     "devDependencies": {
         "custom-event": "^1.0.1",
