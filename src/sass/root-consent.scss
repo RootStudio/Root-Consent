@@ -1,4 +1,28 @@
 
+$bg-positive: #A7D46F !default;
+$bg-negative: #FC3A52 !default;
+$txt-positive: #FFF !default;
+$txt-negative: #FFF !default;
+
+$dark-bg-background: rgba(#000, 0.9) !default;
+$dark-txt-copy: #FFF !default;
+$dark-bg-positive: $bg-positive !default;
+$dark-bg-negative: $bg-negative !default;
+$dark-txt-positive: $txt-positive !default;
+$dark-txt-negative: $txt-negative !default;
+
+$light-bg-background: rgba(#FFF, 0.9) !default;
+$light-txt-copy: #333 !default;
+$light-bg-positive: $bg-positive !default;
+$light-bg-negative: $bg-negative !default;
+$light-txt-positive: $txt-positive !default;
+$light-txt-negative: $txt-negative !default;
+
+$font-family: Helvetica, Arial, sans-serif !default;
+$title-font-size: 1rem !default;
+$copy-font-size: 0.8rem !default;
+$copy-font-leading: 1.2rem !default;
+
 .root-consent {
     display: flex;
     position: fixed;
@@ -8,7 +32,7 @@
     opacity: 0;
     z-index: 100;
 
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: $font-family;
     box-sizing: border-box;
 }
 
@@ -27,13 +51,13 @@
 
 .root-consent__message-title {
     margin-bottom: 5px;
-    font-size: 1rem;
+    font-size: $title-font-size;
     font-weight: bold;
 }
 
 .root-consent__message-text {
-    line-height: 1.2rem;
-    font-size: 0.8rem;
+    line-height: $copy-font-leading;
+    font-size: $copy-font-size;
 }
 
 .root-consent__actions {

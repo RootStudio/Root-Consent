@@ -2,7 +2,7 @@ let mix = require('laravel-mix');
 
 mix.setPublicPath('dist');
 
-mix.sass('src/sass/default.scss', 'dist/css/root-consent.css');
+mix.sass('src/sass/root-consent.scss', 'dist/css/root-consent.css');
 
 mix.js('src/js/root-consent.js', 'dist/js/root-consent.js');
 mix.js('src/js/jquery.root-consent.js', 'dist/js/jquery.root-consent.js');
