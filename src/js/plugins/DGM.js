@@ -33,8 +33,6 @@ class DGM {
     init() {
         const cid = this.config.cid;
 
-        console.log(cid)
-
         (function() {
             window.digitalgroupmedia = 'digitalgroupmedia';
             window.digitalgroupmedia = window.digitalgroupmedia || function(){
