@@ -45,8 +45,13 @@ class GoogleTagManager {
             j.src =
                 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
             f.parentNode.insertBefore( j, f );
+
+            if('tags' in this.config ) {
+                this.config.tags();
+            }
         } )( window, document, 'script', 'dataLayer', this.config.tagID );
     }
+
 }
 
 providePlugin( 'google-tag-manager', new GoogleTagManager() );
