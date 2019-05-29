@@ -14,9 +14,9 @@ The library can be installed via NPM or included in your page:
 ```js
 import RootConsent from 'root-consent';
 
-const consent = new RootConsent('body', {
-	delay: 500
-});
+const consent = new rootConsent( 'body', {
+    delay: 500,
+} );
 ```
 
 #### HTML
@@ -123,7 +123,7 @@ Plugins can be registered asynchronously like so:
 import RootConsent from 'root-consent';
 import Example from 'path/toexample';
 
-const consent = new RootConsent('body', {
+const consent = new rootConsent('body', {
 	delay: 500
 });
 
@@ -156,7 +156,7 @@ import RootConsent from 'root-consent';
 import Plugin1 from 'path/to/plugin1';
 import Plugin2 from 'path/to/plugin2';
 
-const consent = new RootConsent('body', {
+const consent = new rootConsent('body', {
 	delay: 500
 });
 
