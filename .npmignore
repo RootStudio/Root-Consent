@@ -1,0 +1,8 @@
+
+#editor settings
+.idea
+.editorconfig
+.DS_STORE
+
+#git
+.git
