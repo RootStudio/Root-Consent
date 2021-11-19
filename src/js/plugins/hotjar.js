@@ -34,7 +34,7 @@ class Hotjar {
     };
 
     _loadAnalyticsScript () {
-        (function(h,o,t,j,a,r){
+        ((h,o,t,j,a,r) => {
             h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
             h._hjSettings={hjid:this.config.hjid,hjsv:this.config.hjsv};
             a=o.getElementsByTagName('head')[0];
