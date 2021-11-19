@@ -1,6 +1,6 @@
 {
     "name": "root-consent",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "Provides a configurable way of obtaining explicit consent from users for tracking purposes",
     "private": false,
     "main": "dist/js/root-consent.js",
