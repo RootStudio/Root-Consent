@@ -5,6 +5,8 @@
     "/js/plugins/facebook-sdk.js": "/js/plugins/facebook-sdk.js",
     "/js/plugins/google-analytics.js": "/js/plugins/google-analytics.js",
     "/js/plugins/google-tag-manager.js": "/js/plugins/google-tag-manager.js",
+    "/js/plugins/hotjar.js": "/js/plugins/hotjar.js",
+    "/js/plugins/hubspot.js": "/js/plugins/hubspot.js",
     "/js/plugins/linkedin-plugin.js": "/js/plugins/linkedin-plugin.js",
     "/js/plugins/root-consent-plugins.js": "/js/plugins/root-consent-plugins.js",
     "/js/plugins/twitter-widget.js": "/js/plugins/twitter-widget.js",
