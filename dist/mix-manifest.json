@@ -1,15 +1,15 @@
 {
+    "/js/root-consent.js": "/js/root-consent.js",
     "/js/jquery.root-consent.js": "/js/jquery.root-consent.js",
-    "/js/plugins/DGM.js": "/js/plugins/DGM.js",
     "/js/plugins/example.js": "/js/plugins/example.js",
-    "/js/plugins/facebook-sdk.js": "/js/plugins/facebook-sdk.js",
+    "/js/plugins/hubspot.js": "/js/plugins/hubspot.js",
+    "/js/plugins/hotjar.js": "/js/plugins/hotjar.js",
     "/js/plugins/google-analytics.js": "/js/plugins/google-analytics.js",
     "/js/plugins/google-tag-manager.js": "/js/plugins/google-tag-manager.js",
-    "/js/plugins/hotjar.js": "/js/plugins/hotjar.js",
-    "/js/plugins/hubspot.js": "/js/plugins/hubspot.js",
-    "/js/plugins/linkedin-plugin.js": "/js/plugins/linkedin-plugin.js",
-    "/js/plugins/root-consent-plugins.js": "/js/plugins/root-consent-plugins.js",
+    "/js/plugins/facebook-sdk.js": "/js/plugins/facebook-sdk.js",
     "/js/plugins/twitter-widget.js": "/js/plugins/twitter-widget.js",
-    "/js/root-consent.js": "/js/root-consent.js",
+    "/js/plugins/linkedin-plugin.js": "/js/plugins/linkedin-plugin.js",
+    "/js/plugins/DGM.js": "/js/plugins/DGM.js",
+    "/js/plugins/root-consent-plugins.js": "/js/plugins/root-consent-plugins.js",
     "/css/root-consent.css": "/css/root-consent.css"
 }

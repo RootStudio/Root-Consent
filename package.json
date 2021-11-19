@@ -6,9 +6,11 @@
     "main": "dist/js/root-consent.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "dev": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "production": "mix --production",
         "build-css": "node-sass --include-path scss src/sass/root-consent.scss dist/css/root-consent.css"
     },
     "author": "Byron Fitzgerald <byron@rootstudio.co.uk>",
@@ -18,13 +20,14 @@
     "license": "MIT",
     "devDependencies": {
         "custom-event": "^1.0.1",
-        "laravel-mix": "^4.0.15",
-        "resolve-url-loader": "2.3.1",
+        "laravel-mix": "^6.0.39",
+        "resolve-url-loader": "^4.0.0",
         "sass": "^1.26.8",
-        "sass-loader": "7.*",
+        "sass-loader": "^12.1.0",
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "custom-event-polyfill": "^0.3.0"
+        "custom-event-polyfill": "^0.3.0",
+        "node-sass": "^6.0.1"
     }
 }
