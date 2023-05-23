@@ -126,6 +126,25 @@ $copy-font-leading: 1.2rem !default;
     left: 20px;
 }
 
+.root-consent--intrusive {
+    bottom: 40px;
+    left: 50%;
+    max-width: 700px;
+    width: 100%;
+    transform: translate(-50%, 0);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 0;
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 75%);
+    border-radius: 20px;
+}
+
+.root-consent--intrusive.root-consent__message {
+    width: 70%;
+}
+
 // Theme
 .root-consent--dark {
     background-color: $dark-bg-background;
