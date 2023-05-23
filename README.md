@@ -97,7 +97,7 @@ The library is designed to be customisable, you can configure the text, theme an
 	</tr>
 	<tr>
 		<td>position</td>
-		<td>top, top-right, top-left, bottom, bottom-right, bottom-left</td>
+		<td>top, top-right, top-left, bottom, bottom-right, bottom-left, intrusive</td>
 		<td>bottom</td>
 	</tr>
 	<tr>
